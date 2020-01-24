@@ -1,7 +1,9 @@
 class ExercisesController < ApplicationController
     def index
         exercises = Exercise.all
-        render json: exercises
+        render json:  exercises.to_json(:include => {
+            :lifts => {:only => [:reps, :weight, :id]}
+        })
     end
 
     def destroy
