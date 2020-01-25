@@ -34,4 +34,12 @@ function addLift(lift, div) {
     div.appendChild(p)
 }
 
+function toggleNext() {
+    if (this.nextElementSibling.style.display === 'none') {
+        this.nextElementSibling.style.display = 'block';
+    } else {
+        this.nextElementSibling.style.display = 'none';
+    }
+}
+
 run();
