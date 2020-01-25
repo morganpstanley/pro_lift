@@ -49,6 +49,9 @@ function addLift(lift, div) {
 ///////////////////////       EVENT LISTENERS         ///////////////////////
 ---------------------------------------------------------------------------*/
 
+const ADD_SET_BUTTON = document.querySelector('#add_input_field');
+const ADD_WORKOUT_BUTTON = document.querySelector('#add_workout');
+
 
 function toggleNext() {
     if (this.nextElementSibling.style.display === 'none') {
@@ -58,14 +61,14 @@ function toggleNext() {
     }
 }
 
-document.querySelector('#add_input_field').addEventListener('click', function() {
+ADD_SET_BUTTON.addEventListener('click', function() {
     div = document.createElement('div');
     div.setAttribute('id', 'set')
     div.innerHTML = formText;
     document.querySelector('#reps_and_weight_input_form').appendChild(div)
 })
 
-document.querySelector('#add_workout').addEventListener('click', toggleNext)
+ADD_WORKOUT_BUTTON.addEventListener('click', toggleNext)
 
 /*___________________________________________________________________________
 ///////////////////////          RUN PROGRAM          ///////////////////////
