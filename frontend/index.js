@@ -1,6 +1,15 @@
+/*___________________________________________________________________________
+///////////////////////       GLOBAL VARIABLES        ///////////////////////
+---------------------------------------------------------------------------*/
+
+
 const BASE_URL = "http://localhost:3000"
 const EXERCISES_URL = `${BASE_URL}/exercises`
 const formText = '<input type="text" name="reps" placeholder="reps"> <input type="text" name="weight" placeholder="weight">'
+
+/*___________________________________________________________________________
+///////////////////////           FUNCTIONS           ///////////////////////
+---------------------------------------------------------------------------*/
 
 
 function run() {
@@ -36,6 +45,11 @@ function addLift(lift, div) {
     div.appendChild(p)
 }
 
+/*___________________________________________________________________________
+///////////////////////       EVENT LISTENERS         ///////////////////////
+---------------------------------------------------------------------------*/
+
+
 function toggleNext() {
     if (this.nextElementSibling.style.display === 'none') {
         this.nextElementSibling.style.display = 'block';
@@ -52,5 +66,9 @@ document.querySelector('#add_input_field').addEventListener('click', function() 
 })
 
 document.querySelector('#add_workout').addEventListener('click', toggleNext)
+
+/*___________________________________________________________________________
+///////////////////////          RUN PROGRAM          ///////////////////////
+---------------------------------------------------------------------------*/
 
 run();
