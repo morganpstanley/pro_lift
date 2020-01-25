@@ -18,14 +18,24 @@
 
     <form id="add_workout_form" style="display: none;">
         <input type="text" name="name" placeholder="Exercise Name">
+
         <br>
-        <input type="text" name="imag" placeholder="reps">
-        <input type="text" name="imag" placeholder="weight">
+
+        <div id="reps_and_weight_input_form">
+            <div id="set">
+                <input type="text" name="reps" placeholder="reps">
+                <input type="text" name="weight" placeholder="weight">
+            </div>
+        </div>
+
+        <input type="button" id="add_input_field" value="+">
+
         <br>
-        <input type="submit" name="submit" value="Add Workout">
+        
+        <input type="submit" name="submit" value="Submit">
     </form>
 
     <br>
-    <script src="index.js"></script>
+    <script type="text/javascript" src="index.js"></script>
 </body>
 </html>
