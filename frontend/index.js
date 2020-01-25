@@ -49,4 +49,6 @@ document.querySelector('#add_input_field').addEventListener('click', function() 
     document.querySelector('#reps_and_weight_input_form').appendChild(div)
 })
 
+document.querySelector('#add_workout').addEventListener('click', toggleNext)
+
 run();
