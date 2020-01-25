@@ -6,19 +6,32 @@ function run() {
     .then(resp => resp.json())
     .then(json => 
         json.forEach(exercise => {
-            let div = document.createElement('div');
-            div.innerHTML = `<b> ${exercise.name} </b> `
-            div.classList.add('lift');
-            exercise.lifts.forEach(lift => {
-                let p = document.createElement('p')
-                liftString = lift.reps + " x " + lift.weight;
-                console.log(liftString)
-                p.innerHTML = liftString;
-                div.appendChild(p)
-            })
-            document.querySelector('body').appendChild(div); 
+            addExercise(exercise)
         })
     );
+}
+
+function addExercise(exercise) {
+    let div = document.createElement('div');
+    let button = document.createElement('button')
+    button.innerHTML = `<b> ${exercise.name} </b> `
+    div.appendChild(button)
+    div.classList.add('lift');
+    let innerDiv = document.createElement('div');
+    innerDiv.style.display = 'none';
+    exercise.lifts.forEach(lift => {
+       addLift(lift, innerDiv)
+    })
+    div.appendChild(innerDiv)
+    document.querySelector('body').appendChild(div);
+    button.addEventListener('click', toggleNext)
+}
+
+function addLift(lift, div) {
+    let p = document.createElement('p')
+    liftString = lift.reps + " x " + lift.weight;
+    p.innerHTML = liftString;
+    div.appendChild(p)
 }
 
 run();
