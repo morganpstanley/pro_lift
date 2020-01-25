@@ -42,4 +42,11 @@ function toggleNext() {
     }
 }
 
+document.querySelector('#add_input_field').addEventListener('click', function() {
+    div = document.createElement('div');
+    div.setAttribute('id', 'set')
+    div.innerHTML = formText;
+    document.querySelector('#reps_and_weight_input_form').appendChild(div)
+})
+
 run();
