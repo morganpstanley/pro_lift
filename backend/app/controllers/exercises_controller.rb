@@ -1,4 +1,5 @@
 class ExercisesController < ApplicationController
+    skip_before_action :verify_authenticity_token
     def index
         exercises = Exercise.all
         render json:  exercises.to_json(:include => {
@@ -12,6 +13,7 @@ class ExercisesController < ApplicationController
     end
 
     def create
+        binding.pry
         exercise = Exercise.create(name: params[:name], date: params[:date])
         render json: exercise
     end
