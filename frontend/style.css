@@ -1,0 +1,38 @@
+html, body {
+    margin:0;
+    padding:0;   
+}
+
+h1 { 
+    font-size: large;
+    letter-spacing: 10pt;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#header {
+    background-color: rgb(255, 230, 0);
+    padding: 5pt;
+}
+
+body {
+    background-color: rgb(15, 15, 15);
+}
+
+#add_workout {
+    font-size: 20pt;
+}
+
+button {
+    font-size: 12pt;
+    width: 200pt;
+    margin: 3pt;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 10pt;
+    /* border-radius: 5pt; */
+    background-color: rgb(255, 230, 0);
+    color: rgb(15, 15, 15);
+    letter-spacing: 1pt;
+    text-transform: uppercase;
+    border: 0pt;
+}
