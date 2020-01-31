@@ -5,7 +5,7 @@
 
 const BASE_URL = "http://localhost:3000"
 const EXERCISES_URL = `${BASE_URL}/exercises`
-const formText = '<input type="text" name="reps" placeholder="reps"> <input type="text" name="weight" placeholder="weight">'
+const formText = '<input type="text" name="reps" placeholder="REPS"> x <input type="text" name="weight" placeholder="WEIGHT">'
 
 /*___________________________________________________________________________
 ///////////////////////           FUNCTIONS           ///////////////////////
