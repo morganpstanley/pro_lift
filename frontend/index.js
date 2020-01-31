@@ -42,6 +42,7 @@ function addLift(lift, div) {
     let p = document.createElement('p')
     liftString = lift.reps + " x " + lift.weight;
     p.innerHTML = liftString;
+    div.setAttribute("id", "set");
     div.appendChild(p)
 }
 
@@ -63,7 +64,7 @@ function toggleNext() {
 
 ADD_SET_BUTTON.addEventListener('click', function() {
     div = document.createElement('div');
-    div.setAttribute('id', 'set')
+    div.setAttribute('id', 'set_form')
     div.innerHTML = formText;
     document.querySelector('#reps_and_weight_input_form').appendChild(div)
 })
