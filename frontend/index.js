@@ -25,7 +25,7 @@ function run() {
 function addExercise(exercise) {
     let div = document.createElement('div');
     let button = document.createElement('button')
-    button.innerHTML = `<b> ${exercise.name} </b> `
+    button.innerHTML = `<b> ${exercise.name} </b> ${exercise.date}`
     div.appendChild(button)
     div.classList.add('lift');
     let innerDiv = document.createElement('div');
