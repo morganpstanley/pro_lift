@@ -1,18 +1,68 @@
 html, body {
     margin:0;
-    padding:0;   
+    padding:0;
+    background-color: rgb(27, 27, 27);
+    color: rgb(27, 27, 27);
+    font-family: Helvetica, sans-serif; 
 }
+
+body {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%   ;
+    grid-template-rows: 4.5rem 20rem 20rem;
+    grid-template-areas: 
+    "header header header header"
+    "lift box1 box1 box1"
+    "lift box2 box2 box2";
+}
+/*--------------HEADER----------------*/
 
 h1 { 
-    font-size: large;
-    letter-spacing: 10pt;
+    font-size: 1rem;
     text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
+    letter-spacing: 0.50rem;
 }
 
-#header {
+#grid-header {
     background-color: rgb(255, 230, 0);
-    padding: 5pt;
+    padding: 0.8rem;
+    margin-bottom: 0.5rem;
+    grid-area: header;
+}
+
+/*----------ALL BUTTONS-------------*/
+
+#grid-lifts {
+    grid-area: lift;
+    background-color: lightcoral;
+}
+
+#box1 {
+    background-color: rgb(64, 116, 151);
+    grid-area: box1;
+}
+
+#box2 {
+    background-color: rgb(0, 252, 147);
+    grid-area: box2;
+}
+
+
+button {
+    width: 18rem;
+    padding: 1.3rem;
+    margin-left: 1rem;
+    margin-top: 0.75rem;
+    border: 0px;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background-color: rgb(255, 230, 0);
+    color: rgb(15, 15, 15);
+}
+
+button:hover {
+    background-color: rgb(255, 198, 43);
 }
 
 .hidden {
@@ -25,24 +75,45 @@ h1 {
     visibility: hidden;
 }
 
-body {
-    background-color: rgb(15, 15, 15);
+/*-------ADD EXERCISE BUTTON----------*/
+
+#add-exercise-button {
+    font-size: 1.7rem;
+    font-weight: 700;
+    text-align: center;
+
+    /* to make symbol flip on x-axis */
+    transform: scale(1, -1);
 }
 
-#add_workout {
-    font-size: 20pt;
-}
+/*--------------SETS----------------*/
 
-button {
-    font-size: 12pt;
-    width: 200pt;
-    margin: 3pt;
-    font-family: Arial, Helvetica, sans-serif;
-    padding: 10pt;
-    /* border-radius: 5pt; */
+#set {
+    width: 16rem;
+    padding: 1rem;
+    margin-left: 1rem;
+    margin-top: 0.1rem;
+    text-align: left;
     background-color: rgb(255, 230, 0);
-    color: rgb(15, 15, 15);
-    letter-spacing: 1pt;
-    text-transform: uppercase;
-    border: 0pt;
+    height: 100px;
+    transition: height 0.3s;
+}
+
+#set-number {
+    margin: 0rem, 4rem;
+    margin-right: 4rem;
+    margin-left: 1rem;
+    font-weight: 600;
+}
+
+#x-symbol {
+    margin: 2rem;
+}
+
+#exercise-name {
+    float: left;
+}
+
+#exercise-date {
+    float: right;
 }
