@@ -11,30 +11,34 @@
 </head>
 
 <body>
-    <div id='header'>
+    <div id="header">
         <h1>ꐕ PRO BUILD</h1>
     </div>
 
-    <button id="add_workout">✐</button>
+    <div id="new-exercise-form">
+        <button id="add-exercise-button">✐</button>
 
-    <form id="add_workout_form" style="display: none;">
-        <input type="text" name="name" placeholder="EXERCISE NAME">
+        <form id="add-exercise-form" style="display: none;">
+            <input type="text" name="input-exercise-name" placeholder="EXERCISE NAME">
 
-        <br>
+            <br>
 
-        <div id="reps_and_weight_input_form">
-            <div id="set_form">
-                <input type="text" name="reps" placeholder="REPS"> x
-                <input type="text" name="weight" placeholder="WEIGHT">
+            <div id="add-lift-form">
+                <div id="add-set-form">
+                    <input type="text" name="input-reps" placeholder="REPS"> x
+                    <input type="text" name="input-weight" placeholder="WEIGHT">
+                </div>
             </div>
-        </div>
 
-        <input type="button" id="add_input_field" value="+">
+            <input type="button" id="add-set-button" value="+">
 
-        <br>
-        
-        <input type="submit" name="submit" value="Submit">
-    </form>
+            <br>
+            
+            <input type="submit" name="add-exercise-submit-button" value="Submit">
+        </form>
+    </div>
+
+    <div id="workouts"></div>
 
 </body>
 </html>
