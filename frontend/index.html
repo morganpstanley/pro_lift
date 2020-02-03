@@ -11,34 +11,39 @@
 </head>
 
 <body>
-    <div id="header">
+    <div id="grid-header">
         <h1>ꐕ PRO BUILD</h1>
     </div>
 
-    <div id="new-exercise-form">
-        <button id="add-exercise-button">✐</button>
+    <div id="grid-lifts">
+        <div id="new-exercise-form">
+            <button id="add-exercise-button">✐</button>
 
-        <form id="add-exercise-form" style="display: none;">
-            <input type="text" name="input-exercise-name" placeholder="EXERCISE NAME">
+            <form id="add-exercise-form" style="display: none;">
+                <input type="text" name="input-exercise-name" placeholder="EXERCISE NAME">
 
-            <br>
+                <br>
 
-            <div id="add-lift-form">
-                <div id="add-set-form">
-                    <input type="text" name="input-reps" placeholder="REPS"> x
-                    <input type="text" name="input-weight" placeholder="WEIGHT">
+                <div id="add-lift-form">
+                    <div id="add-set-form">
+                        <input type="text" name="input-reps" placeholder="REPS"> x
+                        <input type="text" name="input-weight" placeholder="WEIGHT">
+                    </div>
                 </div>
-            </div>
 
-            <input type="button" id="add-set-button" value="+">
+                <input type="button" id="add-set-button" value="+">
 
-            <br>
-            
-            <input type="submit" name="add-exercise-submit-button" value="Submit">
-        </form>
+                <br>
+                
+                <input type="submit" name="add-exercise-submit-button" value="Submit">
+            </form>
+        </div>
+
+        <div id="workouts"></div>
     </div>
 
-    <div id="workouts"></div>
+    <div id="box1"></div>
+    <div id="box2"></div>
 
 </body>
 </html>
