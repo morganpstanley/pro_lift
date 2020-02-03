@@ -15,6 +15,16 @@ h1 {
     padding: 5pt;
 }
 
+.hidden {
+    height: 0px !important;
+    width: 0px !important;
+    padding: 0px !important;
+    margin: 0px !important;
+    font-size: 0px !important;
+    font-weight: 0px !important;
+    visibility: hidden;
+}
+
 body {
     background-color: rgb(15, 15, 15);
 }
