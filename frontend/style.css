@@ -8,7 +8,7 @@ html, body {
 
 body {
     display: grid;
-    grid-template-columns: 25% 25% 25% 25%   ;
+    grid-template-columns: 20rem auto auto auto   ;
     grid-template-rows: 4.5rem 20rem 20rem;
     grid-template-areas: 
     "header header header header"
@@ -34,7 +34,7 @@ h1 {
 
 #grid-lifts {
     grid-area: lift;
-    background-color: lightcoral;
+    background-color: rgb(17, 17, 17);
 }
 
 #box1 {
@@ -84,6 +84,10 @@ button:hover {
 
     /* to make symbol flip on x-axis */
     transform: scale(1, -1);
+}
+
+#add-exercise-form {
+    background-color: lightpink;
 }
 
 /*--------------SETS----------------*/
