@@ -1,16 +1,10 @@
-/*___________________________________________________________________________
-///////////////////////       GLOBAL VARIABLES        ///////////////////////
----------------------------------------------------------------------------*/
-
+/*-------------------     GLOBAL VARIABLES     --------------------*/
 
 const BASE_URL = "http://localhost:3000"
 const EXERCISES_URL = `${BASE_URL}/exercises`
 const formText = '<input type="text" name="reps" placeholder="REPS"> x <input type="text" name="weight" placeholder="WEIGHT">'
 
-/*___________________________________________________________________________
-///////////////////////           FUNCTIONS           ///////////////////////
----------------------------------------------------------------------------*/
-
+/*-----------------------     FUNCTIONS     -----------------------*/
 
 function run() {
     fetch(EXERCISES_URL)
@@ -25,7 +19,7 @@ function run() {
 function addExercise(exercise) {
     let div = document.createElement('div');
     let button = document.createElement('button')
-    button.innerHTML = `<b> ${exercise.name} </b> ${exercise.date}`
+    button.innerHTML = `<span id="exercise-name"><b>${exercise.name}</b></span> <span id="exercise-date">${exercise.date}</span`
     div.appendChild(button)
     div.classList.add('lift');
     let innerDiv = document.createElement('div');
@@ -34,7 +28,7 @@ function addExercise(exercise) {
         addLift(exercise.lifts[i], innerDiv, i+1)
     }
     div.appendChild(innerDiv)
-    document.querySelector('body').appendChild(div);
+    document.querySelector('#workouts').appendChild(div);
     button.addEventListener('click', toggleNext)
 }
 
@@ -46,33 +40,24 @@ function addLift(lift, div, setNum) {
     div.appendChild(p)
 }
 
-/*___________________________________________________________________________
-///////////////////////       EVENT LISTENERS         ///////////////////////
----------------------------------------------------------------------------*/
+/*--------------------     EVENT LISTENERS     --------------------*/
 
-const ADD_SET_BUTTON = document.querySelector('#add_input_field');
-const ADD_WORKOUT_BUTTON = document.querySelector('#add_workout');
-
+const ADD_SET_BUTTON = document.querySelector('#add-set-button');
+const ADD_EXERCISE_BUTTON = document.querySelector('#add-exercise-button');
 
 function toggleNext() {
-    if (this.nextElementSibling.style.display === 'none') {
-        this.nextElementSibling.style.display = 'block';
-    } else {
-        this.nextElementSibling.style.display = 'none';
-    }
+    this.nextElementSibling.classList.toggle('hidden')
 }
 
 ADD_SET_BUTTON.addEventListener('click', function() {
     div = document.createElement('div');
-    div.setAttribute('id', 'set_form')
+    div.setAttribute('id', 'set-form')
     div.innerHTML = formText;
-    document.querySelector('#reps_and_weight_input_form').appendChild(div)
+    document.querySelector('#input-form').appendChild(div)
 })
 
-ADD_WORKOUT_BUTTON.addEventListener('click', toggleNext)
+ADD_EXERCISE_BUTTON.addEventListener('click', toggleNext)
 
-/*___________________________________________________________________________
-///////////////////////          RUN PROGRAM          ///////////////////////
----------------------------------------------------------------------------*/
+/*---------------------     RUN PROGRAM     -----------------------*/
 
 run();
