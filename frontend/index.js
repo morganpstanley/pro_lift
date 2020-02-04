@@ -29,18 +29,18 @@ function addExercise(exercise) {
     div.appendChild(button)
     div.classList.add('lift');
     let innerDiv = document.createElement('div');
-    innerDiv.style.display = 'none';
-    exercise.lifts.forEach(lift => {
-       addLift(lift, innerDiv)
-    })
+    innerDiv.classList.add('hidden');
+    for (i = 0; i < exercise.lifts.length; i++) {
+        addLift(exercise.lifts[i], innerDiv, i+1)
+    }
     div.appendChild(innerDiv)
     document.querySelector('body').appendChild(div);
     button.addEventListener('click', toggleNext)
 }
 
-function addLift(lift, div) {
+function addLift(lift, div, setNum) {
     let p = document.createElement('p')
-    liftString = lift.reps + " x " + lift.weight;
+    liftString = `<span id="set-number">${setNum}.</span> ${lift.reps} <span id="x-symbol">x</span> ${lift.weight}`
     p.innerHTML = liftString;
     div.setAttribute("id", "set");
     div.appendChild(p)
