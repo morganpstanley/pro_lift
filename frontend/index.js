@@ -2,7 +2,7 @@
 
 const BASE_URL = "http://localhost:3000"
 const EXERCISES_URL = `${BASE_URL}/exercises`
-const formText = '<input type="text" name="reps" placeholder="REPS"> x <input type="text" name="weight" placeholder="WEIGHT">'
+const formText = 'REPS <input type="text" name="input-reps" placeholder=""> <span>x</span> WEIGHT <input type="text" name="input-weight" placeholder="">'
 
 /*-----------------------     FUNCTIONS     -----------------------*/
 
@@ -53,7 +53,7 @@ ADD_SET_BUTTON.addEventListener('click', function() {
     div = document.createElement('div');
     div.setAttribute('id', 'set-form')
     div.innerHTML = formText;
-    document.querySelector('#input-form').appendChild(div)
+    document.querySelector('#add-lift-form').appendChild(div)
 })
 
 ADD_EXERCISE_BUTTON.addEventListener('click', toggleNext)
