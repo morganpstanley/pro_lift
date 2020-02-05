@@ -24,7 +24,7 @@ h1 {
 }
 
 #grid-header {
-    background-color: rgb(255, 230, 0);
+    background-color: rgb(245, 159, 0);
     padding: 0.8rem;
     margin-bottom: 0.5rem;
     grid-area: header;
@@ -34,19 +34,8 @@ h1 {
 
 #grid-lifts {
     grid-area: lift;
-    background-color: rgb(17, 17, 17);
+    background-color: rgb(27, 27, 27);
 }
-
-#box1 {
-    background-color: rgb(64, 116, 151);
-    grid-area: box1;
-}
-
-#box2 {
-    background-color: rgb(0, 252, 147);
-    grid-area: box2;
-}
-
 
 button {
     width: 18rem;
@@ -57,12 +46,12 @@ button {
     font-size: 0.85rem;
     letter-spacing: 1px;
     text-transform: uppercase;
-    background-color: rgb(255, 230, 0);
+    background-color: rgb(245, 159, 0);
     color: rgb(15, 15, 15);
 }
 
 button:hover {
-    background-color: rgb(255, 198, 43);
+    background-color: rgb(102, 152, 182);
 }
 
 .hidden {
@@ -87,8 +76,77 @@ button:hover {
 }
 
 #add-exercise-form {
-    background-color: lightpink;
+    background-color: rgb(245, 159, 0);
+    width: 16rem;
+    padding: 1rem;
+    margin-left: 1rem;
+    margin-top: 0.1rem;
+    font-size: 0.75rem;
+    font-weight: 700;
 }
+
+#set-form {
+    margin: 0.5rem;
+}
+
+#set-form span {
+    margin: 1rem;
+}
+
+#add-set-button {
+    background-color: rgb(27, 27, 27);
+    color: rgb(245, 159, 0);
+    text-align: center;
+    border: 5px solid;
+    padding: 7px 7px;
+    margin-top: 10px;
+}
+
+#add-exercise-form {
+    text-align: center;
+}
+
+[name='add-exercise-submit-button'] {
+    background-color: rgb(27, 27, 27);
+    color: rgb(245, 159, 0);
+    text-align: center;
+    border: 5px solid;
+    padding: 7px 0px;
+}
+
+@-webkit-keyframes autofill {
+    0%,100% {
+        color: rgb(27, 27, 27);
+        background: rgb(102, 152, 182);
+    }
+}
+
+input:-webkit-autofill {
+    -webkit-animation-delay: 1s;
+    -webkit-animation-name: autofill;
+    -webkit-animation-fill-mode: both;
+}
+
+input {
+    background-color: rgb(245, 159, 0);
+    color: rgb(255, 255, 255);
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    border-top: 0rem;
+    border-left: 0rem;
+    border-right: 0rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-align: center;
+    width: 8rem;
+}
+
+[name="input-reps"], [name="input-weight"] {
+    width: 3rem;
+}
+
+
 
 /*--------------SETS----------------*/
 
@@ -98,7 +156,7 @@ button:hover {
     margin-left: 1rem;
     margin-top: 0.1rem;
     text-align: left;
-    background-color: rgb(255, 230, 0);
+    background-color: rgb(245, 159, 0);
     height: 100px;
     transition: height 0.3s;
 }
@@ -120,4 +178,16 @@ button:hover {
 
 #exercise-date {
     float: right;
+}
+
+/*--------------BOXES----------------*/
+
+#box1 {
+    background-color: rgb(27, 27, 27);
+    grid-area: box1;
+}
+
+#box2 {
+    background-color: rgb(27, 27, 27);
+    grid-area: box2;
 }
