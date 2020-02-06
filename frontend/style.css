@@ -97,13 +97,16 @@ button:hover {
     margin: 1rem;
 }
 
-#add-set-button {
+#add-set-button, #remove-set-button {
     background-color: rgb(27, 27, 27);
     color: rgb(245, 159, 0);
     text-align: center;
     border: 5px solid;
-    padding: 7px 7px;
-    margin-top: 10px;
+    padding: 0px;
+    margin: 10px 0px 0px 0px;
+    width: 4rem;
+    font-size: 1rem;
+    height: 2.5rem;
 }
 
 #add-exercise-form {

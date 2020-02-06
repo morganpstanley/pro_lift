@@ -43,8 +43,9 @@ function addLift(lift, div, setNum) {
 /*--------------------     EVENT LISTENERS     --------------------*/
 
 const ADD_SET_BUTTON = document.querySelector('#add-set-button');
+const REMOVE_SET_BUTTON = document.querySelector('#remove-set-button');
 const ADD_EXERCISE_BUTTON = document.querySelector('#add-exercise-button');
-const ADD_EXERCISE_FORM = document.querySelector('#add-exercise-form');
+const ADD_EXERCISE_FORM_SUBMIT = document.querySelector('#add-exercise-form');
 let setCounter = 2;
 
 
@@ -61,9 +62,15 @@ ADD_SET_BUTTON.addEventListener('click', function() {
     document.querySelector('#add-lift-form').appendChild(div)
 })
 
+REMOVE_SET_BUTTON.addEventListener('click', function() {
+    setCounter -= 1;
+    div = document.querySelector(`#set-${setCounter}`)
+    div.remove();
+})
+
 ADD_EXERCISE_BUTTON.addEventListener('click', toggleNext)
 
-ADD_EXERCISE_FORM.addEventListener('submit', function() {
+ADD_EXERCISE_FORM_SUBMIT.addEventListener('submit', function() {
     let setArray = [];
 
     for (let i = 1; i < setCounter; i++) {
