@@ -24,7 +24,6 @@ function addExercise(exercise) {
     div.classList.add('lift');
     let innerDiv = document.createElement('div');
     innerDiv.classList.add('hidden');
-    console.log(exercise)
     for (i = 0; i < exercise.lifts.length; i++) {
         addLift(exercise.lifts[i], innerDiv, i+1)
     }
@@ -71,7 +70,6 @@ ADD_EXERCISE_FORM.addEventListener('submit', function() {
         setArray.push([document.querySelector(`#set-${i} [name=input-reps]`).value, 
         document.querySelector(`#set-${i} [name=input-weight]`).value])
     }
-    console.log(setArray)
 
     event.preventDefault();
     fetch(EXERCISES_URL, {
