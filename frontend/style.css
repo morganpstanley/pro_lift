@@ -35,6 +35,10 @@ h1 {
 #grid-lifts {
     grid-area: lift;
     background-color: rgb(27, 27, 27);
+    width: 20.5rem; 
+    height: 40rem; 
+    overflow-x: hidden; 
+    overflow-x: auto; 
 }
 
 button {
@@ -185,9 +189,11 @@ input {
 #box1 {
     background-color: rgb(27, 27, 27);
     grid-area: box1;
+    position: fixed;
 }
 
 #box2 {
     background-color: rgb(27, 27, 27);
     grid-area: box2;
+    position: fixed;
 }
