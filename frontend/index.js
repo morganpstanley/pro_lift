@@ -24,6 +24,7 @@ function addExercise(exercise) {
     div.classList.add('lift');
     let innerDiv = document.createElement('div');
     innerDiv.classList.add('hidden');
+    console.log(exercise)
     for (i = 0; i < exercise.lifts.length; i++) {
         addLift(exercise.lifts[i], innerDiv, i+1)
     }
@@ -44,6 +45,9 @@ function addLift(lift, div, setNum) {
 
 const ADD_SET_BUTTON = document.querySelector('#add-set-button');
 const ADD_EXERCISE_BUTTON = document.querySelector('#add-exercise-button');
+const ADD_EXERCISE_FORM = document.querySelector('#add-exercise-form');
+let setCounter = 2;
+
 
 function toggleNext() {
     this.nextElementSibling.classList.toggle('hidden')
@@ -51,12 +55,39 @@ function toggleNext() {
 
 ADD_SET_BUTTON.addEventListener('click', function() {
     div = document.createElement('div');
-    div.setAttribute('id', 'set-form')
+    div.setAttribute('class', 'set-form')
+    div.setAttribute('id', `set-${setCounter}`)
+    setCounter += 1;
     div.innerHTML = formText;
     document.querySelector('#add-lift-form').appendChild(div)
 })
 
 ADD_EXERCISE_BUTTON.addEventListener('click', toggleNext)
+
+ADD_EXERCISE_FORM.addEventListener('submit', function() {
+    let setArray = [];
+
+    for (let i = 1; i < setCounter; i++) {
+        setArray.push([document.querySelector(`#set-${i} [name=input-reps]`).value, 
+        document.querySelector(`#set-${i} [name=input-weight]`).value])
+    }
+    console.log(setArray)
+
+    event.preventDefault();
+    fetch(EXERCISES_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: "application/json"
+        },
+        body: JSON.stringify({
+            "sets": setArray,
+            "name": document.querySelector('[name=input-exercise-name]').value,
+        })
+    })
+    .then(resp => resp.json())
+    .then(json => addExercise(json))
+})
 
 /*---------------------     RUN PROGRAM     -----------------------*/
 
