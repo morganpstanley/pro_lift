@@ -206,12 +206,33 @@ input {
 #calendar-day {
     width: 16.5rem;
     height: 19rem;
-    background-color: rgb(245, 159, 0);
+    background-color: rgb(34, 122, 194);
     float: left;
+    text-align: center;
 }
 
+#calendar-day-month{
+    padding-top: 2.5rem;
+    font-size: 3.5rem;
+    font-weight: 300;
+    line-height: 2rem;
+}
+
+#calendar-day-day{
+    margin: 0rem;
+    font-size: 6.2rem;
+    font-weight: 800;
+    line-height: 6rem;
+}
+
+#worked-out {
+    font-size: 6rem;
+    /* font-weight: 700; */
+}
+
+
 #calendar-month {
-    border: 0.5rem solid rgb(245, 159, 0); 
+    border: 0.5rem solid rgb(34, 122, 194); 
     color: whitesmoke;
     width: 42rem;
     height: 19rem;
