@@ -164,7 +164,7 @@ input {
     margin-top: 0.1rem;
     text-align: left;
     background-color: rgb(245, 159, 0);
-    height: 100px;
+    height: auto;
     transition: height 0.3s;
 }
 
@@ -189,14 +189,32 @@ input {
 
 /*--------------BOXES----------------*/
 
+.box {
+    margin: 0.75rem;
+}
+
 #box1 {
-    background-color: rgb(27, 27, 27);
+    background-color: rgb(194, 34, 34);
     grid-area: box1;
-    position: fixed;
 }
 
 #box2 {
-    background-color: rgb(27, 27, 27);
+    background-color: rgb(34, 122, 194);
     grid-area: box2;
-    position: fixed;
+}
+
+#calendar-day {
+    width: 16.5rem;
+    height: 19rem;
+    background-color: rgb(245, 159, 0);
+    float: left;
+}
+
+#calendar-month {
+    border: 0.5rem solid rgb(245, 159, 0); 
+    color: whitesmoke;
+    width: 42rem;
+    height: 19rem;
+    background-color: rgb(27, 27,27);
+    float: left;
 }
