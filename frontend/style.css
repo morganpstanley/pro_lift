@@ -252,17 +252,17 @@ input {
     background-color:rgb(245, 159, 0);
     height: 2rem;
     vertical-align: middle;
-  }
+}
   
-  .weekdays li {
+.weekdays li {
     display: inline-block;
     width: 13.5%;
     color: rgb(27, 27, 27);
     text-align: center;
-  }
+}
   
   /* Days (1-31) */
-  .days {
+.days {
     overflow: hidden; 
     white-space: nowrap;
     align-items: center;
@@ -271,9 +271,9 @@ input {
     padding: 18px 0px 0px;
     background: whitesmoke;
     margin: 0;
-  }
+}
   
-  .days li {
+.days li {
     list-style-type: none;
     display: inline-block;
     height: 2rem;
@@ -285,19 +285,22 @@ input {
     vertical-align: 100%;
   }
   
-  /* Highlight the "current" day */
-  .days li .active {
-    padding: 7px;
+/* Highlight the "current" day */
+
+span.worked-out {
+    padding: 8px;
+    background: rgb(245, 159, 0);
+    border-radius: 50%;
+    z-index: 1;
+}
+
+div.week span.active {
+    padding: 8px;
     background: rgb(48, 135, 189);
     border-radius: 50%;
-  }
+    z-index: 2;
+}
 
-  .days li .worked-out {
-    padding: 10px;
-    background: rgb(245, 159, 0);
-
-  }
-
-  li.inactive {
+li.inactive {
     color: whitesmoke;
-  }
+}

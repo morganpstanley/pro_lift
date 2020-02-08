@@ -120,7 +120,11 @@ function markCalendar(date) {
     todayMonth = "0" + (todayMonth + 1)
     todayYear = todayDate.getFullYear()
     if (year == todayYear && month == todayMonth) {
-        document.querySelector(`#day-${day}`).classList.add('worked-out')
+        if (document.querySelector(`#day-${day} .active`)) {
+            markToday(day)
+        } else {
+            markDay(day)
+        }
     }
 }
 
@@ -128,9 +132,13 @@ function markToday() {
     document.querySelector('#worked-out').innerHTML = '✓'
 }
 
+function markDay(day) {
+    document.querySelector(`#day-${day}`).innerHTML = `<span class='worked-out'>${day}</span>`
+}
+
 function highlightToday() {
     day = new Date().getDate();
-    document.querySelector(`#day-0${day}`).classList.add('active')
+    document.querySelector(`#day-0${day}`).innerHTML = `<span class='active'>0${day}</span>`
 }
 
 //-------------CALENDAR HELPER METHODS-------------
