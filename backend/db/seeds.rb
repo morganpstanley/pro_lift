@@ -9,10 +9,10 @@
 Exercise.delete_all
 Lift.delete_all
 
-bench_press = Exercise.create(name: "Bench Press", date: "10/18/19")
-shoulder_press = Exercise.create(name: "Shoulder Press", date: "10/18/19")
-squat = Exercise.create(name: "Squat", date: "10/18/19")
-deadlift = Exercise.create(name: "Deadlift", date: "10/19/19")
+bench_press = Exercise.create(name: "Bench Press", date: "02/01/20")
+shoulder_press = Exercise.create(name: "Shoulder Press", date: "02/03/20")
+squat = Exercise.create(name: "Squat", date: "02/05/20")
+deadlift = Exercise.create(name: "Deadlift", date: "02/06/20")
 
 Lift.create(reps:8, weight:200, exercise_id:bench_press.id)
 Lift.create(reps:5, weight:250, exercise_id:bench_press.id)
