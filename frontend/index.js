@@ -14,6 +14,7 @@ function run() {
             addExercise(exercise)
         })
     );
+    createCalendar();
 }
 
 function addExercise(exercise) {
@@ -38,6 +39,89 @@ function addLift(lift, div, setNum) {
     p.innerHTML = liftString;
     div.setAttribute("id", "set");
     div.appendChild(p)
+}
+
+// CALENDAR
+const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]
+const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEPT", "OCT", "NOV", "DEC"];
+
+function createCalendar() {
+    fillCalendarLeft();
+    fillCalendarRight();
+}
+
+function fillCalendarLeft() {
+    const date = new Date();
+    const day = date.getDate();
+    const month = months[date.getMonth()];
+    digitize(day)
+
+    document.querySelector('#calendar-day-day').innerText = day;
+    document.querySelector('#calendar-day-month').innerText = month;
+}
+
+function fillCalendarRight() {
+    let week = createWeek()
+    let emptyCells = 0;
+
+    //fill emtpy days on first calendar row
+    while (getFirstDateOfMonth() !== days[emptyCells]) {
+        createInactiveDay(week);
+        emptyCells++
+    }   
+
+    //fill calendar
+    for (let i = 0; i < daysInThisMonth(); i++) {
+        if ((i + emptyCells) % 7 === 0) {
+            week = createWeek()
+        }
+        createCalendarDay(i + 1, week)
+    }
+
+    //fill remaining days on last calendar row
+    while ((daysInThisMonth() + emptyCells) % 7 !== 0) {
+        createInactiveDay(week);
+        emptyCells++
+    }
+}
+
+//-------------CALENDAR HELPER METHODS-------------
+
+function createWeek() {
+    div = document.createElement('div')
+    div.classList.add('week')
+    document.querySelector('.days').appendChild(div)
+    return div;
+}
+
+function createInactiveDay(week) {
+    li = document.createElement('li')
+    li.innerHTML = "00";
+    li.classList.add('inactive')
+    week.appendChild(li) 
+}
+
+function createCalendarDay(dateInt, week) {
+        li = document.createElement('li')
+        li.innerHTML = digitize(dateInt);
+        week.appendChild(li)
+}
+
+function digitize(number) {
+    if (number < 10) {
+        number = "0" + number;
+    }
+    return number
+}
+
+function daysInThisMonth() {
+    var now = new Date();
+    return new Date(now.getFullYear(), now.getMonth()+1, 0).getDate();
+  }
+
+function getFirstDateOfMonth() {
+    date = new Date()
+    return new Date(date.getFullYear(), date.getMonth(), 1).toUTCString().split(',')[0].toUpperCase();
 }
 
 /*--------------------     EVENT LISTENERS     --------------------*/
