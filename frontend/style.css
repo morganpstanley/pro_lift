@@ -7,6 +7,7 @@ html, body {
 }
 
 body {
+    min-width: 1200px;
     display: grid;
     grid-template-columns: 20rem auto auto auto   ;
     grid-template-rows: 4.5rem 20rem 20rem;
@@ -71,7 +72,6 @@ button:hover {
 /*-------ADD EXERCISE BUTTON----------*/
 
 #add-exercise-button {
-    background-color: rgb(245, 159, 0);
     font-size: 1.7rem;
     font-weight: 700;
     text-align: center;
