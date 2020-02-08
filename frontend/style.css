@@ -247,8 +247,7 @@ input {
     font-weight: 800;
     text-align: center;
     margin: 0;
-    padding: 1rem;
-    padding-top: 1.3rem;
+    padding: 1.7rem 1.5rem .6rem;
     background-color:rgb(245, 159, 0);
     height: 2rem;
     vertical-align: middle;
