@@ -51,7 +51,7 @@ button {
     letter-spacing: 1px;
     text-transform: uppercase;
     background-color: rgb(245, 159, 0);
-    color: rgb(15, 15, 15);
+    color: rgb(27, 27, 27);
 }
 
 button:hover {
@@ -71,6 +71,7 @@ button:hover {
 /*-------ADD EXERCISE BUTTON----------*/
 
 #add-exercise-button {
+    background-color: rgb(245, 159, 0);
     font-size: 1.7rem;
     font-weight: 700;
     text-align: center;
@@ -199,14 +200,16 @@ input {
 }
 
 #box2 {
-    background-color: rgb(34, 122, 194);
     grid-area: box2;
 }
 
+/*--------------CALENDAR----------------*/
+
+/* LEFT */
 #calendar-day {
     width: 16.5rem;
     height: 19rem;
-    background-color: rgb(34, 122, 194);
+    background-color: rgb(48, 135, 189);
     float: left;
     text-align: center;
 }
@@ -227,15 +230,74 @@ input {
 
 #worked-out {
     font-size: 6rem;
-    /* font-weight: 700; */
 }
-
 
 #calendar-month {
-    border: 0.5rem solid rgb(34, 122, 194); 
-    color: whitesmoke;
-    width: 42rem;
-    height: 19rem;
-    background-color: rgb(27, 27,27);
-    float: left;
+    height: 19.5rem;
 }
+
+/* RIGHT */
+
+/* Weekdays (Mon-Sun) */
+.weekdays {
+    white-space: nowrap;
+    overflow: hidden; 
+    font-size: 1rem;
+    letter-spacing: 2px;
+    font-weight: 800;
+    text-align: center;
+    margin: 0;
+    padding: 1rem;
+    padding-top: 1.3rem;
+    background-color:rgb(245, 159, 0);
+    height: 2rem;
+    vertical-align: middle;
+  }
+  
+  .weekdays li {
+    display: inline-block;
+    width: 13.5%;
+    color: rgb(27, 27, 27);
+    text-align: center;
+  }
+  
+  /* Days (1-31) */
+  .days {
+    overflow: hidden; 
+    white-space: nowrap;
+    align-items: center;
+    text-align: center;
+    height: 13.55rem;
+    padding: 18px 0px 0px;
+    background: whitesmoke;
+    margin: 0;
+  }
+  
+  .days li {
+    list-style-type: none;
+    display: inline-block;
+    height: 2rem;
+    width: 13.5%;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1rem;
+    color: rgb(27, 27, 27);
+    vertical-align: 100%;
+  }
+  
+  /* Highlight the "current" day */
+  .days li .active {
+    padding: 7px;
+    background: rgb(48, 135, 189);
+    border-radius: 50%;
+  }
+
+  .days li .worked-out {
+    padding: 10px;
+    background: rgb(245, 159, 0);
+
+  }
+
+  li.inactive {
+    color: whitesmoke;
+  }
