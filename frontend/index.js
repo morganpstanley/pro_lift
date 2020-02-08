@@ -7,14 +7,15 @@ const formText = 'REPS <input type="text" name="input-reps" placeholder=""> <spa
 /*-----------------------     FUNCTIONS     -----------------------*/
 
 function run() {
+    createCalendar();
     fetch(EXERCISES_URL)
     .then(resp => resp.json())
     .then(json => 
         json.forEach(exercise => {
-            addExercise(exercise)
+            addExercise(exercise);
+            markCalendar(exercise.date)
         })
     );
-    createCalendar();
 }
 
 function addExercise(exercise) {
@@ -47,7 +48,8 @@ const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEPT", 
 
 function createCalendar() {
     fillCalendarLeft();
-    fillCalendarRight();
+    fillCalendarRight()
+    highlightToday();
 }
 
 function fillCalendarLeft() {
@@ -102,10 +104,36 @@ function createInactiveDay(week) {
 }
 
 function createCalendarDay(dateInt, week) {
+        const day = digitize(dateInt)
         li = document.createElement('li')
-        li.innerHTML = digitize(dateInt);
+        li.innerHTML = day;
+        li.setAttribute('id', `day-${day}`)
         week.appendChild(li)
 }
+
+function markCalendar(date) {
+    let [month, day, year] = date.split('/')
+    year = "20" + year
+    todayDate = new Date()
+    todayDay = todayDate.getDate()
+    todayMonth = todayDate.getMonth()
+    todayMonth = "0" + (todayMonth + 1)
+    todayYear = todayDate.getFullYear()
+    if (year == todayYear && month == todayMonth) {
+        document.querySelector(`#day-${day}`).classList.add('worked-out')
+    }
+}
+
+function markToday() {
+    document.querySelector('#worked-out').innerHTML = '✓'
+}
+
+function highlightToday() {
+    day = new Date().getDate();
+    document.querySelector(`#day-0${day}`).classList.add('active')
+}
+
+//-------------CALENDAR HELPER METHODS-------------
 
 function digitize(number) {
     if (number < 10) {
@@ -175,7 +203,10 @@ ADD_EXERCISE_FORM_SUBMIT.addEventListener('submit', function() {
         })
     })
     .then(resp => resp.json())
-    .then(json => addExercise(json))
+    .then(json => {
+        addExercise(json)
+        markToday()
+    })
 })
 
 /*---------------------     RUN PROGRAM     -----------------------*/
