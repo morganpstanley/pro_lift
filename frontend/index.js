@@ -138,7 +138,8 @@ function markDay(day) {
 
 function highlightToday() {
     day = new Date().getDate();
-    document.querySelector(`#day-0${day}`).innerHTML = `<span class='active'>0${day}</span>`
+    day = digitize(day)
+    document.querySelector(`#day-${day}`).innerHTML = `<span class='active'>${day}</span>`
 }
 
 //-------------CALENDAR HELPER METHODS-------------
@@ -159,6 +160,57 @@ function getFirstDateOfMonth() {
     date = new Date()
     return new Date(date.getFullYear(), date.getMonth(), 1).toUTCString().split(',')[0].toUpperCase();
 }
+
+//WORKOUT VIDEOS
+const benchPress = "oaJVAxzoE0g";
+const deadlift = "r4MzxtBKyNE";
+const pushUp = "cOiT2mELfCY";
+const skullCrusher = "NIWKqcmpBug";
+const militaryPress = "47haESZnuiw"
+const dumbellRow = "roCP6wCXPqo"
+const bicepCurl = "hwidQWYkiRU"
+const workoutMusic = "hjpF8ukSrvk"
+
+document.querySelector('#bench-press').addEventListener('click', function() {
+    event.preventDefault();
+    document.querySelector('#workout-video').innerHTML = `<iframe src="https://www.youtube.com/embed/${benchPress}"></iframe>`
+})
+
+document.querySelector('#deadlift').addEventListener('click', function() {
+    event.preventDefault();
+    document.querySelector('#workout-video').innerHTML = `<iframe src="https://www.youtube.com/embed/${deadlift}"></iframe>`
+})
+
+document.querySelector('#push-up').addEventListener('click', function() {
+    event.preventDefault();
+    document.querySelector('#workout-video').innerHTML = `<iframe src="https://www.youtube.com/embed/${pushUp}"></iframe>`
+})
+
+document.querySelector('#skull-crusher').addEventListener('click', function() {
+    event.preventDefault();
+    document.querySelector('#workout-video').innerHTML = `<iframe src="https://www.youtube.com/embed/${skullCrusher}"></iframe>`
+})
+
+document.querySelector('#military-press').addEventListener('click', function() {
+    event.preventDefault();
+    document.querySelector('#workout-video').innerHTML = `<iframe src="https://www.youtube.com/embed/${militaryPress}"></iframe>`
+})
+
+document.querySelector('#dumbell-row').addEventListener('click', function() {
+    event.preventDefault();
+    document.querySelector('#workout-video').innerHTML = `<iframe src="https://www.youtube.com/embed/${dumbellRow}"></iframe>`
+})
+
+document.querySelector('#bicep-curl').addEventListener('click', function() {
+    event.preventDefault();
+    document.querySelector('#workout-video').innerHTML = `<iframe src="https://www.youtube.com/embed/${bicepCurl}"></iframe>`
+})
+
+document.querySelector('#workout-music').addEventListener('click', function() {
+    event.preventDefault();
+    document.querySelector('#workout-video').innerHTML = `<iframe src="https://www.youtube.com/embed/${workoutMusic}"></iframe>`
+})
+
 
 /*--------------------     EVENT LISTENERS     --------------------*/
 
@@ -214,6 +266,7 @@ ADD_EXERCISE_FORM_SUBMIT.addEventListener('submit', function() {
     .then(json => {
         addExercise(json)
         markToday()
+        toggleNext()
     })
 })
 
