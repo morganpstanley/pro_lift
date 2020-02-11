@@ -228,7 +228,7 @@ function toggleNext() {
 ADD_SET_BUTTON.addEventListener('click', function() {
     div = document.createElement('div');
     div.setAttribute('class', 'set-form')
-    div.setAttribute('id', `set-${setCounter}`)
+    div.setAttribute('id', `add-set-${setCounter}`)
     setCounter += 1;
     div.innerHTML = formText;
     document.querySelector('#add-lift-form').appendChild(div)
@@ -236,7 +236,7 @@ ADD_SET_BUTTON.addEventListener('click', function() {
 
 REMOVE_SET_BUTTON.addEventListener('click', function() {
     setCounter -= 1;
-    div = document.querySelector(`#set-${setCounter}`)
+    div = document.querySelector(`#add-set-${setCounter}`)
     div.remove();
 })
 
@@ -246,8 +246,8 @@ ADD_EXERCISE_FORM_SUBMIT.addEventListener('submit', function() {
     let setArray = [];
 
     for (let i = 1; i < setCounter; i++) {
-        setArray.push([document.querySelector(`#set-${i} [name=input-reps]`).value, 
-        document.querySelector(`#set-${i} [name=input-weight]`).value])
+        setArray.push([document.querySelector(`#add-set-${i} [name=input-reps]`).value, 
+        document.querySelector(`#add-set-${i} [name=input-weight]`).value])
     }
 
     event.preventDefault();
@@ -266,7 +266,7 @@ ADD_EXERCISE_FORM_SUBMIT.addEventListener('submit', function() {
     .then(json => {
         addExercise(json)
         markToday()
-        toggleNext()
+        toggleNext.call(ADD_EXERCISE_BUTTON)
     })
 })
 
