@@ -25,7 +25,7 @@ function addExercise(exercise) {
     div.appendChild(button)
     div.classList.add('lift');
     let innerDiv = document.createElement('div');
-    innerDiv.classList.add('hidden');
+    innerDiv.classList.add('hidden', 'sets');
     for (i = 0; i < exercise.lifts.length; i++) {
         addLift(exercise.lifts[i], innerDiv, i+1)
     }
@@ -38,7 +38,6 @@ function addLift(lift, div, setNum) {
     let p = document.createElement('p')
     liftString = `<span id="set-number">${setNum}.</span> ${lift.reps} <span id="x-symbol">x</span> ${lift.weight}`
     p.innerHTML = liftString;
-    div.setAttribute("id", "set");
     div.appendChild(p)
 }
 
