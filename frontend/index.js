@@ -44,8 +44,43 @@ function addLift(lift, div, setNum) {
     editButton = document.createElement('button')
     editButton.innerText = "✐"
     editButton.classList.add('edit-button')
+    editButton.addEventListener('click', editForm)
     innerDiv.appendChild(editButton)
     div.appendChild(innerDiv)
+}
+
+function editForm() {
+    if (this.previousElementSibling.isContentEditable) {
+        this.previousElementSibling.contentEditable="false"
+        this.innerText = "✐";
+        submitEditForm(this.previousElementSibling)
+    } else {
+        this.previousElementSibling.contentEditable="true"
+        this.innerText = "?";
+    }
+
+}
+
+function submitEditForm(set) {
+    let liftId = set.parentElement.id
+    let [reps,, weight] = set.innerText.split(' ');
+    reps = parseInt(reps)
+    weight = parseInt(weight)
+    fetch(`${LIFTS_URL}/${liftId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: "application/json"
+        },
+        body: JSON.stringify({
+            "reps": reps,
+            "weight": weight,
+        })
+    })
+    .then(resp => resp.json())
+    .then(json => {
+        console.log(json)
+    })
 }
 
 // CALENDAR

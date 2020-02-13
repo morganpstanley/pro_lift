@@ -15,4 +15,21 @@ class LiftsController < ApplicationController
         lift = Lift.create(reps: params[:reps], date: params[:amount])
         render json: lift
     end
+
+    def show
+        lift = Lift.find_by_id(params[:id])
+        render json: lift
+    end
+
+    def update
+        lift = Lift.find_by_id(params[:id])
+        lift.update(lift_params)
+        render json: lift
+    end
+
+private
+
+def lift_params
+    params.permit(:reps, :weight)
+end
 end
