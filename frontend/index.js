@@ -2,6 +2,7 @@
 
 const BASE_URL = "http://localhost:3000"
 const EXERCISES_URL = `${BASE_URL}/exercises`
+const LIFTS_URL = `${BASE_URL}/lifts`
 const formText = 'REPS <input type="text" name="input-reps" placeholder=""> <span>x</span> WEIGHT <input type="text" name="input-weight" placeholder="">'
 
 /*-----------------------     FUNCTIONS     -----------------------*/
@@ -35,10 +36,16 @@ function addExercise(exercise) {
 }
 
 function addLift(lift, div, setNum) {
-    let p = document.createElement('p')
-    liftString = `<span id="set-number">${setNum}.</span> ${lift.reps} <span id="x-symbol">x</span> ${lift.weight}`
-    p.innerHTML = liftString;
-    div.appendChild(p)
+    let innerDiv = document.createElement('div')
+    innerDiv.setAttribute('id', lift.id)
+    innerDiv.classList.add('set')
+    liftString = `<span class="set-number">${setNum}</span> <span class="reps-n-sets"> <span class="lift-reps">${lift.reps}</span> <span class="x-symbol">x</span> <span class="lift-reps">${lift.weight}</span> </span>`
+    innerDiv.innerHTML = liftString;
+    editButton = document.createElement('button')
+    editButton.innerText = "✐"
+    editButton.classList.add('edit-button')
+    innerDiv.appendChild(editButton)
+    div.appendChild(innerDiv)
 }
 
 // CALENDAR
