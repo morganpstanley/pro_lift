@@ -2,7 +2,7 @@ html, body {
     margin:0;
     padding:0;
     background-color: white;
-    color: rgb(27, 27, 27);
+    color: whitesmoke;
     font-family: Helvetica, sans-serif; 
 }
 
@@ -16,176 +16,26 @@ body {
     "lift box1 box1 box1"
     "lift box2 box2 box2";
 }
-/*--------------HEADER----------------*/
-
-h1 { 
-    font-size: 1rem;
-    text-align: center;
-    letter-spacing: 0.50rem;
-}
+/*--------------HEADER SECTION-----------------*/
 
 #grid-header {
-    background-color: rgb(231, 45, 45);
+    /* position */
+    grid-area: header;
     padding: 0.8rem;
     margin-bottom: 0.5rem;
-    grid-area: header;
-}
-
-/*----------ALL BUTTONS-------------*/
-
-#grid-lifts {
-    grid-area: lift;
-    background-color: white;
-    width: 20.5rem; 
-    height: 40rem; 
-    overflow-x: hidden; 
-    overflow-x: auto; 
-}
-
-button {
-    width: 18rem;
-    padding: 1.3rem;
-    margin-left: 1rem;
-    margin-top: 0.75rem;
-    border: 0px;
-    font-size: 0.85rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    background-color: rgb(231, 45, 45);
     color: rgb(27, 27, 27);
+
+    /* other */
+    background-color: rgb(231, 172, 45);
 }
 
-button:hover {
-    background-color:rgb(235, 86, 86);
-}
-
-.hidden {
-    height: 0px !important;
-    width: 0px !important;
-    padding: 0px !important;
-    margin: 0px !important;
-    font-size: 0px !important;
-    font-weight: 0px !important;
-    visibility: hidden;
-}
-
-/*-------ADD EXERCISE BUTTON----------*/
-
-#add-exercise-button {
-    font-size: 1.7rem;
-    font-weight: 700;
-    text-align: center;
-
-    /* to make symbol flip on x-axis */
-    transform: scale(1, -1);
-}
-
-#add-exercise-form {
-    background-color: rgb(231, 45, 45);
-    width: 16rem;
-    padding: 1rem;
-    margin-left: 1rem;
-    margin-top: 0.1rem;
-    font-size: 0.75rem;
-    font-weight: 700;
-}
-
-#set-form {
-    margin: 0.5rem;
-}
-
-.set-form span {
-    margin: 1rem;
-}
-
-#add-set-button, #remove-set-button {
-    background-color: rgb(27, 27, 27);
-    color: rgb(231, 45, 45);
-    text-align: center;
-    border: 5px solid;
-    padding: 0px;
-    margin: 10px 0px 0px 0px;
-    width: 4rem;
+#grid-header h1 { 
+    /* other */
     font-size: 1rem;
-    height: 2.5rem;
-}
 
-#add-exercise-form {
+    /* text */
     text-align: center;
-}
-
-[name='add-exercise-submit-button'] {
-    background-color: rgb(27, 27, 27);
-    color: rgb(231, 45, 45);
-    text-align: center;
-    border: 5px solid;
-    padding: 7px 0px;
-}
-
-@-webkit-keyframes autofill {
-    0%,100% {
-        color: rgb(27, 27, 27);
-        background: rgb(102, 152, 182);
-    }
-}
-
-input:-webkit-autofill {
-    -webkit-animation-delay: 1s;
-    -webkit-animation-name: autofill;
-    -webkit-animation-fill-mode: both;
-}
-
-input {
-    background-color: rgb(231, 45, 45);
-    color: rgb(255, 255, 255);
-    border-style: solid;
-    border-width: 1px;
-    border-color: black;
-    border-top: 0rem;
-    border-left: 0rem;
-    border-right: 0rem;
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-align: center;
-    width: 8rem;
-}
-
-[name="input-reps"], [name="input-weight"] {
-    width: 3rem;
-}
-
-
-
-/*--------------SETS----------------*/
-
-.sets {
-    width: 16rem;
-    padding: 1rem;
-    margin-left: 1rem;
-    margin-top: 0.1rem;
-    text-align: left;
-    background-color: rgb(231, 45, 45);
-    height: auto;
-    transition: height 3s;
-    text-align: center;
-}
-
-#set-number {
-    margin: 0rem, 4rem;
-    margin-right: 4rem;
-    font-weight: 600;
-}
-
-#x-symbol {
-    margin: 2rem;
-}
-
-#exercise-name {
-    float: left;
-}
-
-#exercise-date {
-    float: right;
+    letter-spacing: 0.50rem;
 }
 
 /*--------------BOXES----------------*/
@@ -202,15 +52,242 @@ input {
     grid-area: box2;
 }
 
-/*--------------CALENDAR----------------*/
+/*-------------LIFT SECTION-------------*/
+
+#grid-lifts {
+    /* position */
+    grid-area: lift;
+    width: 20.5rem; 
+    height: 40rem; 
+    overflow-x: hidden; 
+    overflow-x: auto; 
+    
+    /* other */
+    background-color: white;
+}
+
+#grid-lifts button {
+    /* position */
+    width: 18rem;
+    padding: 1.3rem;
+    margin: .75rem 0rem 0rem 1rem;
+    border: 0px;
+
+    /* text */
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgb(27, 27, 27);
+
+    /* other */
+    background-color: rgb(231, 172, 45);
+}
+
+#grid-lifts button:hover {
+    background-color:rgb(243, 196, 95);
+}
+
+.hidden {
+    height: 0px !important;
+    width: 0px !important;
+    padding: 0px !important;
+    margin: 0px !important;
+    font-size: 0px !important;
+    font-weight: 0px !important;
+    visibility: hidden;
+}
+
+/*-------ADD EXERCISE BUTTON----------*/
+
+#grid-lifts #add-exercise-button {
+    /* text */
+    font-size: 1.7rem;
+    font-weight: 700;
+    text-align: center;
+
+    /* to make symbol flip on x-axis */
+    transform: scale(1, -1);
+}
+
+#grid-lifts #add-exercise-form {
+    /* position */
+    width: 16rem;
+    padding: 1rem;
+    margin-left: 1rem;
+    margin-top: 0.1rem;
+
+    /* text */
+    font-size: 0.75rem;
+    font-weight: 700;
+
+    /* other */
+    background-color: rgb(231, 172, 45);
+}
+
+#grid-lifts #set-form {
+    margin: 0.5rem;
+}
+
+#grid-lifts .set-form span {
+    margin: 1rem;
+}
+
+#grid-lifts #add-set-button, #grid-lifts #remove-set-button {
+    /* position */
+    border: 5px solid;
+    padding: 0px;
+    margin: 10px 0px 0px 0px;
+    width: 4rem;
+    font-size: 1rem;
+    height: 2.5rem;
+
+    /* text */
+    text-align: center;
+    color: rgb(231, 172, 45);
+
+    /* other */
+    background-color: rgb(27, 27, 27);
+}
+
+#grid-lifts #add-exercise-form {
+    text-align: center;
+}
+
+#grid-lifts [name='add-exercise-submit-button'] {
+    /* position */
+    border: 5px solid;
+    padding: 7px 0px;
+
+    /* text */
+    text-align: center;
+    color: rgb(231, 172, 45);
+
+    /* other */
+    background-color: rgb(27, 27, 27);
+}
+
+/* @-webkit-keyframes autofill {
+    0%,100% {
+        color: rgb(27, 27, 27);
+        background: rgb(102, 152, 182);
+    }
+}
+
+#grid-lifts input:-webkit-autofill {
+    -webkit-animation-delay: 1s;
+    -webkit-animation-name: autofill;
+    -webkit-animation-fill-mode: both;
+} */
+
+#grid-lifts input {
+    /* position */
+    border: solid black;
+    border-width: 0rem 0rem 1px 0rem;
+    width: 8rem;
+
+    /* text */
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-align: center;
+    color: rgb(255, 255, 255);
+
+    /* other */
+    background-color: rgb(231, 172, 45);
+}
+
+#grid-lifts [name="input-reps"], #grid-lifts [name="input-weight"] {
+    width: 3rem;
+}
+
+/*--------------SETS----------------*/
+#grid-lifts .reps-n-sets {
+    border: 2px solid rgb(27, 27, 27);
+    background-color: rgb(27, 27, 27);
+    border-radius: 50px;
+    padding: 1px 13px
+}
+
+#grid-lifts .sets {
+    /* position */
+    width: 17rem;
+    padding: 1rem 0rem 1rem 1rem;
+    margin: .1rem 1rem 0rem 1rem;
+    height: auto;
+
+    /* text */
+    text-align: left;
+    font-weight: 700;
+
+    /* other */
+    background-color: rgb(231, 172, 45);;
+    transition: height 3s;
+}
+
+#grid-lifts .set-number {
+    /* position */
+    padding: 4px 9px;
+    margin: 0rem 2rem 0rem 0rem;
+    border-radius: 50%;
+
+    /* text */
+    font-weight: 600;
+    color: rgb(231, 172, 45);
+
+    /* other */
+    background-color: rgb(27, 27, 27);
+}
+
+#grid-lifts .set {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 2.5rem;
+    color: rgb(231, 172, 45);
+}
+
+#grid-lifts .x-symbol {
+    margin: 1rem;
+    color: rgb(231, 172, 45)
+}
+
+#grid-lifts #exercise-name {
+    float: left;
+}
+
+#grid-lifts #exercise-date {
+    float: right;
+}
+
+#grid-lifts div.sets .edit-button {
+    /* position */
+    padding: 0px;
+    margin: 0px 20px 0px 30px;
+    width: 1.7rem;
+    height: 1.7rem;
+    border-radius: 50% 0% 50% 50%;
+
+    /* text */
+    color: rgb(231, 172, 45);
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 900;
+
+    /* other */
+    background-color: rgb(27, 27, 27);
+    transform: scale(-1, -1);
+
+}
+
+/*--------------CALENDAR SECTION----------------*/
 
 /* LEFT */
 #calendar-day {
     width: 16.5rem;
     height: 19rem;
-    background-color: rgb(228, 211, 167);
+    background-color: rgb(30, 54, 160);
     float: left;
     text-align: center;
+    color: rgb(231, 172, 45);
 }
 
 #calendar-day-month{
@@ -235,21 +312,25 @@ input {
     height: 19.5rem;
 }
 
-/* RIGHT */
+/*--- RIGHT ---*/
 
-/* Weekdays (Mon-Sun) */
 .weekdays {
-    white-space: nowrap;
-    overflow: hidden; 
+    /* position */
+    margin: 0;
+    padding: 1.7rem 1.5rem .6rem;
+    height: 2rem;
+    vertical-align: middle;
+
+    /* text */
     font-size: 1rem;
     letter-spacing: 2px;
     font-weight: 800;
     text-align: center;
-    margin: 0;
-    padding: 1.7rem 1.5rem .6rem;
-    background-color:rgb(231, 45, 45);
-    height: 2rem;
-    vertical-align: middle;
+
+    /* other */
+    white-space: nowrap;
+    overflow: hidden; 
+    background-color:rgb(231, 172, 45);
 }
   
 .weekdays li {
@@ -259,49 +340,57 @@ input {
     text-align: center;
 }
   
-  /* Days (1-31) */
 .days {
-    overflow: hidden; 
-    white-space: nowrap;
-    align-items: center;
-    text-align: center;
+    /* position */
     height: 13.55rem;
     padding: 18px 0px 0px;
-    background: whitesmoke;
     margin: 0;
+    align-items: center;
+
+    /* text */
+    text-align: center;
+
+    /* other */
+    overflow: hidden; 
+    white-space: nowrap;
+    background: whitesmoke;
 }
   
 .days li {
-    list-style-type: none;
+    /* position */
     display: inline-block;
     height: 2rem;
     width: 13.5%;
+    vertical-align: 100%;
+
+    /* text */
     text-align: center;
     font-weight: 600;
     font-size: 1rem;
     color: rgb(27, 27, 27);
-    vertical-align: 100%;
   }
   
 /* Highlight the "current" day */
-
 span.worked-out {
     padding: 8px;
-    background: rgb(231, 45, 45);
+    background: rgb(231, 172, 45);
     border-radius: 50%;
     z-index: 1;
 }
 
 div.week span.active {
     padding: 8px;
-    background: rgb(228, 211, 167);
+    background: rgb(30, 54, 160);
     border-radius: 50%;
     z-index: 2;
+    color: whitesmoke;
 }
 
 li.inactive {
     color: whitesmoke;
 }
+
+/*--------------VIDEO SECTION----------------*/
 
 iframe {
     border: 0px;
@@ -320,18 +409,26 @@ iframe {
 }
 
 .vid-button {
-    font-weight: 600;
+    /* position */
     width: 10rem;
     height: 3rem;
-    padding: 2rem 1rem;
-    margin-left: 0rem;
-    margin-top: .3rem;
-    margin-bottom: .3rem;
-    margin-right: 1rem;
+    padding: 1.6rem 1rem 2.5rem;
+    margin: .3rem 1rem .3rem 0rem;
     border: 0px;
+    border-radius: 0px 20px 0px 20px;
+
+    /* text */
+    font-weight: 600;
     font-size: 0.7rem;
     letter-spacing: 1px;
     text-transform: uppercase;
-    background-color: rgb(228, 211, 167);
-    color: rgb(27, 27, 27)
+    color: whitesmoke;
+
+    /* other */
+    background-color: rgb(30, 54, 160);
+}
+
+.vid-button:hover {
+    background-color: rgb(68, 93, 202);
+    color: rgb(27, 27, 27);
 }
