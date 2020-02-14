@@ -39,7 +39,7 @@ function addLift(lift, div, setNum) {
     let innerDiv = document.createElement('div')
     innerDiv.setAttribute('id', lift.id)
     innerDiv.classList.add('set')
-    liftString = `<span class="set-number">${setNum}</span> <span class="reps-n-sets"> <span class="lift-reps">${lift.reps}</span> <span class="x-symbol">x</span> <span class="lift-reps">${lift.weight}</span> </span>`
+    liftString = `<span class="set-number">${setNum}</span> <span class="reps-n-sets"> <span class="lift-reps">${lift.reps}</span> <span class="x-symbol">✘</span> <span class="lift-weight">${lift.weight}</span> </span>`
     innerDiv.innerHTML = liftString;
     editButton = document.createElement('button')
     editButton.innerText = "✐"
@@ -50,13 +50,19 @@ function addLift(lift, div, setNum) {
 }
 
 function editForm() {
-    if (this.previousElementSibling.isContentEditable) {
-        this.previousElementSibling.contentEditable="false"
+    if (this.previousElementSibling.querySelector('.lift-reps').isContentEditable) {
+        this.previousElementSibling.querySelector('.lift-reps').contentEditable="false"
+        this.previousElementSibling.querySelector('.lift-weight').contentEditable="false"
+        this.previousElementSibling.classList.remove('being-edited')
         this.innerText = "✐";
+        this.classList.remove('editing')
         submitEditForm(this.previousElementSibling)
     } else {
-        this.previousElementSibling.contentEditable="true"
-        this.innerText = "?";
+        this.previousElementSibling.querySelector('.lift-reps').contentEditable="true"
+        this.previousElementSibling.querySelector('.lift-weight').contentEditable="true"
+        this.innerText = "EDITING...";
+        this.classList.add('editing')
+        this.previousElementSibling.classList.add('being-edited')
     }
 
 }
