@@ -7,7 +7,7 @@ html, body {
 }
 
 body {
-    min-width: 1200px;
+    min-width: 1250px;
     display: grid;
     grid-template-columns: 20rem auto auto auto   ;
     grid-template-rows: 4.5rem 20rem 20rem;
@@ -15,6 +15,10 @@ body {
     "header header header header"
     "lift box1 box1 box1"
     "lift box2 box2 box2";
+}
+
+input:focus, textarea:focus, select:focus, button:focus{
+    outline: none;
 }
 /*--------------HEADER SECTION-----------------*/
 
@@ -89,6 +93,7 @@ body {
 
 .hidden {
     height: 0px !important;
+    max-height: 0px !important;
     width: 0px !important;
     padding: 0px !important;
     margin: 0px !important;
@@ -166,7 +171,7 @@ body {
     background-color: rgb(27, 27, 27);
 }
 
-/* @-webkit-keyframes autofill {
+@-webkit-keyframes autofill {
     0%,100% {
         color: rgb(27, 27, 27);
         background: rgb(102, 152, 182);
@@ -177,7 +182,7 @@ body {
     -webkit-animation-delay: 1s;
     -webkit-animation-name: autofill;
     -webkit-animation-fill-mode: both;
-} */
+}
 
 #grid-lifts input {
     /* position */
@@ -204,7 +209,9 @@ body {
     border: 2px solid rgb(27, 27, 27);
     background-color: rgb(27, 27, 27);
     border-radius: 50px;
-    padding: 1px 13px
+    padding: 1px 13px;
+    font-weight: 400;
+    transition: background-color .25s, color .25s, border-color .25s, color .25s;
 }
 
 #grid-lifts .sets {
@@ -213,6 +220,9 @@ body {
     padding: 1rem 0rem 1rem 1rem;
     margin: .1rem 1rem 0rem 1rem;
     height: auto;
+    max-height: 1000px;
+    white-space: nowrap;
+    overflow: hidden;
 
     /* text */
     text-align: left;
@@ -220,7 +230,6 @@ body {
 
     /* other */
     background-color: rgb(231, 172, 45);;
-    transition: height 3s;
 }
 
 #grid-lifts .set-number {
@@ -275,6 +284,7 @@ body {
     /* other */
     background-color: rgb(27, 27, 27);
     transform: scale(-1, -1);
+    transition: width .25s, border-radius .25s, margin .25s, background-color .25s;
 
 }
 
@@ -431,4 +441,25 @@ iframe {
 .vid-button:hover {
     background-color: rgb(68, 93, 202);
     color: rgb(27, 27, 27);
+}
+
+.editing {
+    background-color: whitesmoke !important;
+    color: rgb(27, 27, 27) !important;
+    width: 4.2rem !important;
+    margin: 0px 10px 0px 0px !important;
+    border-radius: 2rem !important;
+    transform: none !important;
+    font-size: .5rem !important;
+    white-space: nowrap !important;
+    overflow: hidden;
+    transition: width .25s, border-radius .25s, margin .25s, background-color .25s;
+}
+
+.being-edited {
+    background-color: whitesmoke !important;
+    color: rgb(100, 100, 100) !important;
+    border-color: whitesmoke !important;
+    font-weight: 900 !important;
+    transition: background-color .25s, color .25s, border-color .25s, color .25s;
 }
