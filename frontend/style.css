@@ -463,3 +463,15 @@ iframe {
     font-weight: 900 !important;
     transition: background-color .25s, color .25s, border-color .25s, color .25s;
 }
+
+.error {
+    background-color: rgb(192, 24, 24);
+    color: black;
+}
+
+.error-message {
+    color: rgb(27, 27, 27);
+    font-size: .5rem;
+    font-style: italic;
+    text-align: center;
+}

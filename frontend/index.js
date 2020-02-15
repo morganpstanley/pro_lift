@@ -27,6 +27,12 @@ function addExercise(exercise) {
     div.classList.add('lift');
     let innerDiv = document.createElement('div');
     innerDiv.classList.add('hidden', 'sets');
+    
+    errorDiv = document.createElement('div')
+    errorDiv.classList.add('hidden', 'error-message')
+
+    innerDiv.appendChild(errorDiv)
+
     for (i = 0; i < exercise.lifts.length; i++) {
         addLift(exercise.lifts[i], innerDiv, i+1)
     }
@@ -51,13 +57,10 @@ function addLift(lift, div, setNum) {
 
 function editForm() {
     if (this.previousElementSibling.querySelector('.lift-reps').isContentEditable) {
-        this.previousElementSibling.querySelector('.lift-reps').contentEditable="false"
-        this.previousElementSibling.querySelector('.lift-weight').contentEditable="false"
-        this.previousElementSibling.classList.remove('being-edited')
-        this.innerText = "✐";
-        this.classList.remove('editing')
         submitEditForm(this.previousElementSibling)
     } else {
+        window.inputWeight = this.previousElementSibling.querySelector('.lift-weight').innerText;
+        window.inputReps = this.previousElementSibling.querySelector('.lift-reps').innerText;
         this.previousElementSibling.querySelector('.lift-reps').contentEditable="true"
         this.previousElementSibling.querySelector('.lift-weight').contentEditable="true"
         this.innerText = "EDITING...";
@@ -68,25 +71,54 @@ function editForm() {
 }
 
 function submitEditForm(set) {
+    div = set.parentElement.parentElement.querySelector('.error-message')
+    div.classList.remove('hidden')
+
     let liftId = set.parentElement.id
-    let [reps,, weight] = set.innerText.split(' ');
-    reps = parseInt(reps)
-    weight = parseInt(weight)
-    fetch(`${LIFTS_URL}/${liftId}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: "application/json"
-        },
-        body: JSON.stringify({
-            "reps": reps,
-            "weight": weight,
+    let reps = set.querySelector('.lift-reps').innerText
+    let weight = set.querySelector('.lift-weight').innerText;
+    if (!reps > 0 && !weight > 0) {
+        div.classList.remove('hidden')
+        div.innerHTML = "ERROR - PLEASE ADD AMOUNT OF REPS AND WEIGHT"
+        set.querySelector('.lift-reps').classList.add('error')
+        set.querySelector('.lift-weight').classList.add('error')
+        set.querySelector('.lift-reps').innerText = window.inputReps
+        set.querySelector('.lift-weight').innerText = window.inputWeight
+    } else if (!reps > 0) {
+        div.classList.remove('hidden')
+        set.querySelector('.lift-weight').classList.remove('error')
+        div.innerHTML = "ERROR - PLEASE ADD AMOUNT OF REPS"
+        set.querySelector('.lift-reps').classList.add('error')
+        set.querySelector('.lift-reps').innerText = window.inputReps
+    } else if (!weight > 0) {
+        set.querySelector('.lift-reps').classList.remove('error')
+        div.classList.remove('hidden')
+        div.innerHTML = "ERROR - PLEASE ADD A WEIGHT"
+        set.querySelector('.lift-weight').classList.add('error')
+        set.querySelector('.lift-weight').innerText = window.inputWeight
+    } else {
+        set.querySelector('.lift-weight').classList.remove('error')
+        set.querySelector('.lift-reps').classList.remove('error')
+        div.classList.add('hidden');
+        fetch(`${LIFTS_URL}/${liftId}`, {
+            method: 'PATCH',
+            headers: {
+            'Content-Type': 'application/json',
+            Accept: "application/json"
+            },
+            body: JSON.stringify({
+                "reps": reps,
+                "weight": weight,
+            })
         })
-    })
-    .then(resp => resp.json())
-    .then(json => {
-        console.log(json)
-    })
+        .then(function() {
+            set.querySelector('.lift-reps').contentEditable="false"
+            set.querySelector('.lift-weight').contentEditable="false"
+            set.classList.remove('being-edited')
+            set.nextElementSibling.innerText = "✐";
+            set.nextElementSibling.classList.remove('editing')
+        })
+    }
 }
 
 // CALENDAR
