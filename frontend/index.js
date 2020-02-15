@@ -9,6 +9,7 @@ const formText = 'REPS <input type="text" name="input-reps" placeholder=""> <spa
 
 function run() {
     createCalendar();
+    addWorkoutVideoLinks();
     fetch(EXERCISES_URL)
     .then(resp => resp.json())
     .then(json => 
@@ -241,55 +242,26 @@ function getFirstDateOfMonth() {
 }
 
 //WORKOUT VIDEOS
-const benchPress = "oaJVAxzoE0g";
-const deadlift = "r4MzxtBKyNE";
-const pushUp = "cOiT2mELfCY";
-const skullCrusher = "NIWKqcmpBug";
-const militaryPress = "47haESZnuiw"
-const dumbellRow = "roCP6wCXPqo"
-const bicepCurl = "hwidQWYkiRU"
-const workoutMusic = "hjpF8ukSrvk"
+function addWorkoutVideoLinks() {
+    const videoLinks = {
+        'bench-press': 'oaJVAxzoE0g', 
+        'deadlift': 'r4MzxtBKyNE', 
+        'push-up': 'cOiT2mELfCY', 
+        'skull-crusher': 'NIWKqcmpBug', 
+        'military-press': '47haESZnuiw', 
+        'dumbell-row': 'roCP6wCXPqo', 
+        'bicep-curl': 'hwidQWYkiRU', 
+        'workout-music': 'hjpF8ukSrvk'
+    }
 
-document.querySelector('#bench-press').addEventListener('click', function() {
-    event.preventDefault();
-    document.querySelector('#workout-video').innerHTML = `<iframe src="https://www.youtube.com/embed/${benchPress}"></iframe>`
-})
-
-document.querySelector('#deadlift').addEventListener('click', function() {
-    event.preventDefault();
-    document.querySelector('#workout-video').innerHTML = `<iframe src="https://www.youtube.com/embed/${deadlift}"></iframe>`
-})
-
-document.querySelector('#push-up').addEventListener('click', function() {
-    event.preventDefault();
-    document.querySelector('#workout-video').innerHTML = `<iframe src="https://www.youtube.com/embed/${pushUp}"></iframe>`
-})
-
-document.querySelector('#skull-crusher').addEventListener('click', function() {
-    event.preventDefault();
-    document.querySelector('#workout-video').innerHTML = `<iframe src="https://www.youtube.com/embed/${skullCrusher}"></iframe>`
-})
-
-document.querySelector('#military-press').addEventListener('click', function() {
-    event.preventDefault();
-    document.querySelector('#workout-video').innerHTML = `<iframe src="https://www.youtube.com/embed/${militaryPress}"></iframe>`
-})
-
-document.querySelector('#dumbell-row').addEventListener('click', function() {
-    event.preventDefault();
-    document.querySelector('#workout-video').innerHTML = `<iframe src="https://www.youtube.com/embed/${dumbellRow}"></iframe>`
-})
-
-document.querySelector('#bicep-curl').addEventListener('click', function() {
-    event.preventDefault();
-    document.querySelector('#workout-video').innerHTML = `<iframe src="https://www.youtube.com/embed/${bicepCurl}"></iframe>`
-})
-
-document.querySelector('#workout-music').addEventListener('click', function() {
-    event.preventDefault();
-    document.querySelector('#workout-video').innerHTML = `<iframe src="https://www.youtube.com/embed/${workoutMusic}"></iframe>`
-})
-
+    for (const link in videoLinks) {
+        console.log(link, videoLinks[link])
+        document.querySelector(`#${link}`).addEventListener('click', function() {
+            event.preventDefault();
+            document.querySelector('#workout-video').innerHTML = `<iframe src="https://www.youtube.com/embed/${videoLinks[link]}"></iframe>`
+        })
+    }
+}
 
 /*--------------------     EVENT LISTENERS     --------------------*/
 
