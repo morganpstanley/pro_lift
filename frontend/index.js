@@ -38,7 +38,7 @@ function addExercise(exercise) {
         addLift(exercise.lifts[i], innerDiv, i+1)
     }
     div.appendChild(innerDiv)
-    document.querySelector('#workouts').appendChild(div);
+    document.querySelector('#workouts').prepend(div);
     button.addEventListener('click', toggleNext)
 }
 
