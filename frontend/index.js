@@ -295,13 +295,19 @@ ADD_EXERCISE_BUTTON.addEventListener('click', toggleNext)
 
 ADD_EXERCISE_FORM_SUBMIT.addEventListener('submit', function() {
     let setArray = [];
+    event.preventDefault();
+
+    if (checkForErrors(this) !== 0) {
+        document.querySelector('#add-exercise-form .error-message').classList.remove('hidden')
+        document.querySelector('#add-exercise-form .error-message').innerText = "ERROR - PLEASE FILL EMPTY FIELDS"
+        return false;
+    }
 
     for (let i = 1; i < setCounter; i++) {
         setArray.push([document.querySelector(`#add-set-${i} [name=input-reps]`).value, 
         document.querySelector(`#add-set-${i} [name=input-weight]`).value])
     }
 
-    event.preventDefault();
     fetch(EXERCISES_URL, {
         method: 'POST',
         headers: {
@@ -320,6 +326,33 @@ ADD_EXERCISE_FORM_SUBMIT.addEventListener('submit', function() {
         toggleNext.call(ADD_EXERCISE_BUTTON)
     })
 })
+
+function checkForErrors(form) {
+    errors = 0
+    while (document.querySelector('.lift-error')) {
+        document.querySelector('.lift-error').classList.remove('lift-error');
+    }
+    if (document.querySelector('[name=input-exercise-name]').value === "") {
+        document.querySelector('[name=input-exercise-name]').classList.add('lift-error')
+        errors += 1;
+    }
+    for (let i = 1; i < setCounter; i++) {
+        if (document.querySelector(`#add-set-${i} [name=input-reps]`).value === "") {
+            errors += 1;
+            document.querySelector(`#add-set-${i} [name=input-reps]`).classList.add('lift-error')
+        }
+        if (document.querySelector(`#add-set-${i} [name=input-weight]`).value === "") {
+            errors += 1;
+            document.querySelector(`#add-set-${i} [name=input-weight]`).classList.add('lift-error')
+        }
+    }
+    return errors  
+}
+
+// for (let i = 1; i < setCounter; i++) {
+//     setArray.push([document.querySelector(`#add-set-${i} [name=input-reps]`).value, 
+//     document.querySelector(`#add-set-${i} [name=input-weight]`).value])
+// }
 
 /*---------------------     RUN PROGRAM     -----------------------*/
 

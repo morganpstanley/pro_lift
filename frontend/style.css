@@ -124,6 +124,7 @@ input:focus, textarea:focus, select:focus, button:focus{
     /* text */
     font-size: 0.75rem;
     font-weight: 700;
+    color: rgb(27, 27, 27);
 
     /* other */
     background-color: rgb(231, 172, 45);
@@ -174,7 +175,7 @@ input:focus, textarea:focus, select:focus, button:focus{
 @-webkit-keyframes autofill {
     0%,100% {
         color: rgb(27, 27, 27);
-        background: rgb(102, 152, 182);
+        background: rgb(231, 172, 45);
     }
 }
 
@@ -194,7 +195,6 @@ input:focus, textarea:focus, select:focus, button:focus{
     font-size: 0.75rem;
     font-weight: 700;
     text-align: center;
-    color: rgb(255, 255, 255);
 
     /* other */
     background-color: rgb(231, 172, 45);
@@ -474,4 +474,8 @@ iframe {
     font-size: .5rem;
     font-style: italic;
     text-align: center;
+}
+
+.lift-error {
+    background-color: red !important;
 }
