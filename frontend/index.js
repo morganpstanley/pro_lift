@@ -21,19 +21,13 @@ function run() {
 }
 
 function addExercise(exercise) {
-    let div = document.createElement('div');
+    const div = createDiv('lift')
     let button = document.createElement('button')
     button.innerHTML = `<span id="exercise-name"><b>${exercise.name}</b></span> <span id="exercise-date">${exercise.date}</span`
     div.appendChild(button)
-    div.classList.add('lift');
-    let innerDiv = document.createElement('div');
-    innerDiv.classList.add('hidden', 'sets');
-    
-    errorDiv = document.createElement('div')
-    errorDiv.classList.add('hidden', 'error-message')
-
+    const innerDiv = createDiv('hidden sets')
+    const errorDiv = createDiv('hidden error-message')
     innerDiv.appendChild(errorDiv)
-
     for (i = 0; i < exercise.lifts.length; i++) {
         addLift(exercise.lifts[i], innerDiv, i+1)
     }
@@ -43,9 +37,8 @@ function addExercise(exercise) {
 }
 
 function addLift(lift, div, setNum) {
-    let innerDiv = document.createElement('div')
+    const innerDiv = createDiv('set')
     innerDiv.setAttribute('id', lift.id)
-    innerDiv.classList.add('set')
     liftString = `<span class="set-number">${setNum}</span> <span class="reps-n-sets"> <span class="lift-reps">${lift.reps}</span> <span class="x-symbol">✘</span> <span class="lift-weight">${lift.weight}</span> </span>`
     innerDiv.innerHTML = liftString;
     editButton = document.createElement('button')
@@ -170,8 +163,7 @@ function fillCalendarRight() {
 //-------------CALENDAR HELPER METHODS-------------
 
 function createWeek() {
-    div = document.createElement('div')
-    div.classList.add('week')
+    div = createDiv('week')
     document.querySelector('.days').appendChild(div)
     return div;
 }
@@ -277,8 +269,7 @@ function toggleNext() {
 }
 
 ADD_SET_BUTTON.addEventListener('click', function() {
-    div = document.createElement('div');
-    div.setAttribute('class', 'set-form')
+    div = createDiv('set-form');
     div.setAttribute('id', `add-set-${setCounter}`)
     setCounter += 1;
     div.innerHTML = formText;
@@ -349,10 +340,11 @@ function checkForErrors(form) {
     return errors  
 }
 
-// for (let i = 1; i < setCounter; i++) {
-//     setArray.push([document.querySelector(`#add-set-${i} [name=input-reps]`).value, 
-//     document.querySelector(`#add-set-${i} [name=input-weight]`).value])
-// }
+function createDiv(classes) {
+    div = document.createElement('div');
+    div.className = `${classes}`;
+    return div;
+}
 
 /*---------------------     RUN PROGRAM     -----------------------*/
 
