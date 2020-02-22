@@ -20,6 +20,8 @@ function run() {
     );
 }
 
+/*------------------     LIFT SECTION     ------------------*/
+
 function addExercise(exercise) {
     const div = createDiv('lift')
     let button = document.createElement('button')
@@ -65,35 +67,11 @@ function editForm() {
 }
 
 function submitEditForm(set) {
-    div = set.parentElement.parentElement.querySelector('.error-message')
-    div.classList.remove('hidden')
-
-    let liftId = set.parentElement.id
-    let reps = set.querySelector('.lift-reps').innerText
-    let weight = set.querySelector('.lift-weight').innerText;
-    if (!reps > 0 && !weight > 0) {
-        div.classList.remove('hidden')
-        div.innerHTML = "ERROR - PLEASE ADD AMOUNT OF REPS AND WEIGHT"
-        set.querySelector('.lift-reps').classList.add('error')
-        set.querySelector('.lift-weight').classList.add('error')
-        set.querySelector('.lift-reps').innerText = window.inputReps
-        set.querySelector('.lift-weight').innerText = window.inputWeight
-    } else if (!reps > 0) {
-        div.classList.remove('hidden')
-        set.querySelector('.lift-weight').classList.remove('error')
-        div.innerHTML = "ERROR - PLEASE ADD AMOUNT OF REPS"
-        set.querySelector('.lift-reps').classList.add('error')
-        set.querySelector('.lift-reps').innerText = window.inputReps
-    } else if (!weight > 0) {
-        set.querySelector('.lift-reps').classList.remove('error')
-        div.classList.remove('hidden')
-        div.innerHTML = "ERROR - PLEASE ADD A WEIGHT"
-        set.querySelector('.lift-weight').classList.add('error')
-        set.querySelector('.lift-weight').innerText = window.inputWeight
-    } else {
-        set.querySelector('.lift-weight').classList.remove('error')
-        set.querySelector('.lift-reps').classList.remove('error')
-        div.classList.add('hidden');
+    const liftId = set.parentElement.id
+    const reps = set.querySelector('.lift-reps').innerText
+    const weight = set.querySelector('.lift-weight').innerText;
+    
+    if (handleErrors(set, reps, weight)) {
         fetch(`${LIFTS_URL}/${liftId}`, {
             method: 'PATCH',
             headers: {
@@ -115,7 +93,66 @@ function submitEditForm(set) {
     }
 }
 
-// CALENDAR
+function handleErrors(set, reps = 0, weight = 0) {
+    const div = set.parentElement.parentElement.querySelector('.error-message')
+    div.classList.remove('hidden')
+    if (!reps && !weight) {
+        set.querySelector('.lift-reps').classList.add('error');
+        set.querySelector('.lift-reps').innerText = window.inputReps;
+        set.querySelector('.lift-weight').classList.add('error')
+        set.querySelector('.lift-weight').innerText = window.inputWeight
+        div.innerHTML = "ERROR - PLEASE ADD AMOUNT OF REPS AND WEIGHT"
+        return 0
+    } else if (!reps) {
+        set.querySelector('.lift-reps').classList.add('error');
+        set.querySelector('.lift-reps').innerText = window.inputReps;
+        set.querySelector('.lift-weight').classList.remove('error')
+        div.innerHTML = "ERROR - PLEASE ADD AMOUNT OF REPS"
+        return 0
+    } else if (!weight) {
+        set.querySelector('.lift-weight').classList.add('error')
+        set.querySelector('.lift-reps').classList.remove('error')
+        set.querySelector('.lift-weight').innerText = window.inputWeight
+        div.innerHTML = "ERROR - PLEASE ADD A WEIGHT"
+        return 0
+    } else {
+        set.querySelector('.lift-weight').classList.remove('error')
+        set.querySelector('.lift-reps').classList.remove('error')
+        div.classList.add('hidden')
+        return 1
+    }
+}
+
+function checkForErrors(form) {
+    errors = 0
+    while (document.querySelector('.lift-error')) {
+        document.querySelector('.lift-error').classList.remove('lift-error');
+    }
+    if (document.querySelector('[name=input-exercise-name]').value === "") {
+        document.querySelector('[name=input-exercise-name]').classList.add('lift-error')
+        errors += 1;
+    }
+    for (let i = 1; i < setCounter; i++) {
+        if (document.querySelector(`#add-set-${i} [name=input-reps]`).value === "") {
+            errors += 1;
+            document.querySelector(`#add-set-${i} [name=input-reps]`).classList.add('lift-error')
+        }
+        if (document.querySelector(`#add-set-${i} [name=input-weight]`).value === "") {
+            errors += 1;
+            document.querySelector(`#add-set-${i} [name=input-weight]`).classList.add('lift-error')
+        }
+    }
+    return errors  
+}
+
+function createDiv(classes) {
+    div = document.createElement('div');
+    div.className = `${classes}`;
+    return div;
+}
+
+/*---------------------     CALENDAR     ---------------------*/
+
 const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]
 const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEPT", "OCT", "NOV", "DEC"];
 
@@ -233,7 +270,8 @@ function getFirstDateOfMonth() {
     return new Date(date.getFullYear(), date.getMonth(), 1).toUTCString().split(',')[0].toUpperCase();
 }
 
-//WORKOUT VIDEOS
+/*-------------------     WORKOUT VIDEOS     -------------------*/
+
 function addWorkoutVideoLinks() {
     const videoLinks = {
         'bench-press': 'oaJVAxzoE0g', 
@@ -247,7 +285,6 @@ function addWorkoutVideoLinks() {
     }
 
     for (const link in videoLinks) {
-        console.log(link, videoLinks[link])
         document.querySelector(`#${link}`).addEventListener('click', function() {
             event.preventDefault();
             document.querySelector('#workout-video').innerHTML = `<iframe src="https://www.youtube.com/embed/${videoLinks[link]}"></iframe>`
@@ -317,34 +354,6 @@ ADD_EXERCISE_FORM_SUBMIT.addEventListener('submit', function() {
         toggleNext.call(ADD_EXERCISE_BUTTON)
     })
 })
-
-function checkForErrors(form) {
-    errors = 0
-    while (document.querySelector('.lift-error')) {
-        document.querySelector('.lift-error').classList.remove('lift-error');
-    }
-    if (document.querySelector('[name=input-exercise-name]').value === "") {
-        document.querySelector('[name=input-exercise-name]').classList.add('lift-error')
-        errors += 1;
-    }
-    for (let i = 1; i < setCounter; i++) {
-        if (document.querySelector(`#add-set-${i} [name=input-reps]`).value === "") {
-            errors += 1;
-            document.querySelector(`#add-set-${i} [name=input-reps]`).classList.add('lift-error')
-        }
-        if (document.querySelector(`#add-set-${i} [name=input-weight]`).value === "") {
-            errors += 1;
-            document.querySelector(`#add-set-${i} [name=input-weight]`).classList.add('lift-error')
-        }
-    }
-    return errors  
-}
-
-function createDiv(classes) {
-    div = document.createElement('div');
-    div.className = `${classes}`;
-    return div;
-}
 
 /*---------------------     RUN PROGRAM     -----------------------*/
 
