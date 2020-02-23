@@ -4,6 +4,8 @@ const BASE_URL = "http://localhost:3000"
 const EXERCISES_URL = `${BASE_URL}/exercises`
 const LIFTS_URL = `${BASE_URL}/lifts`
 const formText = 'REPS <input type="text" name="input-reps" placeholder=""> <span>x</span> WEIGHT <input type="text" name="input-weight" placeholder="">'
+let inputWeight = 0;
+let inputReps = 0;
 
 /*-----------------------     FUNCTIONS     -----------------------*/
 
@@ -24,18 +26,27 @@ function run() {
 
 function addExercise(exercise) {
     const div = createDiv('lift')
-    let button = document.createElement('button')
-    button.innerHTML = `<span id="exercise-name"><b>${exercise.name}</b></span> <span id="exercise-date">${exercise.date}</span`
-    div.appendChild(button)
     const innerDiv = createDiv('hidden sets')
     const errorDiv = createDiv('hidden error-message')
-    innerDiv.appendChild(errorDiv)
+    const buttonText = `<span id="exercise-name"><b>${exercise.name}</b></span> <span id="exercise-date">${exercise.date}</span`
+    const button = createButton(buttonText, toggleNext)
+
     for (i = 0; i < exercise.lifts.length; i++) {
         addLift(exercise.lifts[i], innerDiv, i+1)
     }
+
+    div.appendChild(button)
+    innerDiv.appendChild(errorDiv)
     div.appendChild(innerDiv)
+
     document.querySelector('#workouts').prepend(div);
-    button.addEventListener('click', toggleNext)
+}
+
+function createButton(innerString, clickEvent) {
+    button = document.createElement('button')
+    button.innerHTML = innerString
+    button.addEventListener('click', clickEvent)
+    return button
 }
 
 function addLift(lift, div, setNum) {
@@ -43,10 +54,8 @@ function addLift(lift, div, setNum) {
     innerDiv.setAttribute('id', lift.id)
     liftString = `<span class="set-number">${setNum}</span> <span class="reps-n-sets"> <span class="lift-reps">${lift.reps}</span> <span class="x-symbol">✘</span> <span class="lift-weight">${lift.weight}</span> </span>`
     innerDiv.innerHTML = liftString;
-    editButton = document.createElement('button')
-    editButton.innerText = "✐"
+    editButton = createButton("✐", editForm)
     editButton.classList.add('edit-button')
-    editButton.addEventListener('click', editForm)
     innerDiv.appendChild(editButton)
     div.appendChild(innerDiv)
 }
@@ -55,8 +64,8 @@ function editForm() {
     if (this.previousElementSibling.querySelector('.lift-reps').isContentEditable) {
         submitEditForm(this.previousElementSibling)
     } else {
-        window.inputWeight = this.previousElementSibling.querySelector('.lift-weight').innerText;
-        window.inputReps = this.previousElementSibling.querySelector('.lift-reps').innerText;
+        inputWeight = this.previousElementSibling.querySelector('.lift-weight').innerText;
+        inputReps = this.previousElementSibling.querySelector('.lift-reps').innerText;
         this.previousElementSibling.querySelector('.lift-reps').contentEditable="true"
         this.previousElementSibling.querySelector('.lift-weight').contentEditable="true"
         this.innerText = "EDITING...";
@@ -98,21 +107,21 @@ function handleErrors(set, reps = 0, weight = 0) {
     div.classList.remove('hidden')
     if (!reps && !weight) {
         set.querySelector('.lift-reps').classList.add('error');
-        set.querySelector('.lift-reps').innerText = window.inputReps;
+        set.querySelector('.lift-reps').innerText = inputReps;
         set.querySelector('.lift-weight').classList.add('error')
-        set.querySelector('.lift-weight').innerText = window.inputWeight
+        set.querySelector('.lift-weight').innerText = inputWeight
         div.innerHTML = "ERROR - PLEASE ADD AMOUNT OF REPS AND WEIGHT"
         return 0
     } else if (!reps) {
         set.querySelector('.lift-reps').classList.add('error');
-        set.querySelector('.lift-reps').innerText = window.inputReps;
+        set.querySelector('.lift-reps').innerText = inputReps;
         set.querySelector('.lift-weight').classList.remove('error')
         div.innerHTML = "ERROR - PLEASE ADD AMOUNT OF REPS"
         return 0
     } else if (!weight) {
         set.querySelector('.lift-weight').classList.add('error')
         set.querySelector('.lift-reps').classList.remove('error')
-        set.querySelector('.lift-weight').innerText = window.inputWeight
+        set.querySelector('.lift-weight').innerText = inputWeight
         div.innerHTML = "ERROR - PLEASE ADD A WEIGHT"
         return 0
     } else {
@@ -322,20 +331,23 @@ REMOVE_SET_BUTTON.addEventListener('click', function() {
 ADD_EXERCISE_BUTTON.addEventListener('click', toggleNext)
 
 ADD_EXERCISE_FORM_SUBMIT.addEventListener('submit', function() {
-    let setArray = [];
     event.preventDefault();
 
+    //Check for errors
     if (checkForErrors(this) !== 0) {
         document.querySelector('#add-exercise-form .error-message').classList.remove('hidden')
         document.querySelector('#add-exercise-form .error-message').innerText = "ERROR - PLEASE FILL EMPTY FIELDS"
         return false;
     }
 
+    //Collect sets into an array
+    let setArray = [];
     for (let i = 1; i < setCounter; i++) {
         setArray.push([document.querySelector(`#add-set-${i} [name=input-reps]`).value, 
         document.querySelector(`#add-set-${i} [name=input-weight]`).value])
     }
 
+    //Post Exercise
     fetch(EXERCISES_URL, {
         method: 'POST',
         headers: {
