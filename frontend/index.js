@@ -351,9 +351,11 @@ ADD_SET_BUTTON.addEventListener('click', function() {
 })
 
 REMOVE_SET_BUTTON.addEventListener('click', function() {
-    setCounter -= 1;
-    div = document.querySelector(`#add-set-${setCounter}`)
-    div.remove();
+    if (setCounter > 1) {
+        div = document.querySelector(`#add-set-${setCounter}`)
+        div.remove();
+        setCounter -= 1;
+    }
 })
 
 ADD_EXERCISE_BUTTON.addEventListener('click', toggleNext)
