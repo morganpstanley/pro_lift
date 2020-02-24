@@ -136,23 +136,27 @@ function handleEditFormErrors(set, reps = 'error', weight = 'error') {
 }
 
 function handleAddFormErrors(form) {
-    errors = 0
+    const name = form.querySelector('[name=input-exercise-name]')
+    let errors = 0
 
     if (form.querySelector('.error')) {
         form.querySelector('.error').classList.remove('error');
     }
-    if (form.querySelector('[name=input-exercise-name]').value === "") {
-        form.querySelector('[name=input-exercise-name]').classList.add('error')
+    if (name.value === "") {
+        name.classList.add('error')
         errors += 1;
     }
     for (let i = 1; i <= setCounter; i++) {
-        if (form.querySelector(`#add-set-${i} [name=input-reps]`).value === "") {
+        const reps = form.querySelector(`#add-set-${i} [name=input-reps]`)
+        const weight = form.querySelector(`#add-set-${i} [name=input-weight]`)
+
+        if (isNaNWithParse(reps.value)) {
+            reps.classList.add('error')
             errors += 1;
-            form.querySelector(`#add-set-${i} [name=input-reps]`).classList.add('error')
         }
-        if (form.querySelector(`#add-set-${i} [name=input-weight]`).value === "") {
+        if (isNaNWithParse(weight.value)) {
+            weight.classList.add('error')
             errors += 1;
-            form.querySelector(`#add-set-${i} [name=input-weight]`).classList.add('error')
         }
     }
     return errors  
@@ -360,7 +364,7 @@ ADD_EXERCISE_FORM_SUBMIT.addEventListener('submit', function() {
     //Check for errors
     if (handleAddFormErrors(this)) {
         document.querySelector('#add-exercise-form .error-message').classList.remove('hidden')
-        document.querySelector('#add-exercise-form .error-message').innerText = "ERROR - PLEASE FILL HIGHLIGHTED FIELDS"
+        document.querySelector('#add-exercise-form .error-message').innerText = "ERROR - PLEASE CORRECT HIGHLIGHTED FIELDS"
         return false;
     }
 
