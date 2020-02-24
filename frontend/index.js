@@ -138,7 +138,7 @@ function handleAddFormErrors(form) {
         form.querySelector('[name=input-exercise-name]').classList.add('error')
         errors += 1;
     }
-    for (let i = 1; i < setCounter; i++) {
+    for (let i = 1; i <= setCounter; i++) {
         if (form.querySelector(`#add-set-${i} [name=input-reps]`).value === "") {
             errors += 1;
             form.querySelector(`#add-set-${i} [name=input-reps]`).classList.add('error')
@@ -312,7 +312,7 @@ const REMOVE_SET_BUTTON = document.querySelector('#remove-set-button');
 const ADD_EXERCISE_BUTTON = document.querySelector('#add-exercise-button');
 const ADD_EXERCISE_FORM_SUBMIT = document.querySelector('#add-exercise-form');
 const formText = 'REPS <input type="text" name="input-reps" placeholder=""> <span>x</span> WEIGHT <input type="text" name="input-weight" placeholder="">';
-let setCounter = 2;
+let setCounter = 1;
 
 
 function toggleNext() {
@@ -320,9 +320,9 @@ function toggleNext() {
 }
 
 ADD_SET_BUTTON.addEventListener('click', function() {
+    setCounter += 1;
     div = createDiv('set-form');
     div.setAttribute('id', `add-set-${setCounter}`)
-    setCounter += 1;
     div.innerHTML = formText;
     document.querySelector('#add-lift-form').appendChild(div)
 })
@@ -347,7 +347,7 @@ ADD_EXERCISE_FORM_SUBMIT.addEventListener('submit', function() {
 
     //Collect sets into an array
     let setArray = [];
-    for (let i = 1; i < setCounter; i++) {
+    for (let i = 1; i <= setCounter; i++) {
         setArray.push([document.querySelector(`#add-set-${i} [name=input-reps]`).value, 
         document.querySelector(`#add-set-${i} [name=input-weight]`).value])
     }
