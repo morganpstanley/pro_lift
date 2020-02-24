@@ -1,12 +1,8 @@
-/*-------------------     GLOBAL VARIABLES     --------------------*/
-
 const BASE_URL = "http://localhost:3000"
 const EXERCISES_URL = `${BASE_URL}/exercises`
 const LIFTS_URL = `${BASE_URL}/lifts`
-let inputWeight = 0;
-let inputReps = 0;
 
-/*-----------------------     FUNCTIONS     -----------------------*/
+/*-----------------------     RUN     -----------------------*/
 
 function run() {
     createCalendar();
@@ -23,6 +19,9 @@ function run() {
 
 /*------------------     LIFT SECTION     ------------------*/
 
+
+//-----------Initial Setup-------------
+
 function addExercise(exercise) {
     const div = createDiv('lift')
     const innerDiv = createDiv('hidden sets')
@@ -35,7 +34,6 @@ function addExercise(exercise) {
         addLift(exercise.lifts[i], innerDiv, i+1)
     }
 
-    //append all divs
     innerDiv.prepend(errorDiv)
     div.appendChild(button)
     div.appendChild(innerDiv)
@@ -57,6 +55,13 @@ function addLift(lift, div, setNum) {
     innerDiv.appendChild(editButton)
     div.appendChild(innerDiv)
 }
+
+//-----------Add and Edit Forms-------------
+
+/* These two variables store the last valid number in a set when a user edits a set, 
+and replace any invalid numbers after a failed edit attempt */
+let inputWeight = 0;
+let inputReps = 0;
 
 function editForm() {
     const targetElement = this.previousElementSibling
@@ -101,6 +106,8 @@ function submitEditForm(set) {
         })
     }
 }
+
+//-----------Error Handlers-------------
 
 function handleEditFormErrors(set, reps = 'error', weight = 'error') {
     const div = set.parentElement.parentElement.querySelector('.error-message')
@@ -151,6 +158,8 @@ function handleAddFormErrors(form) {
     return errors  
 }
 
+//-----------Helpers-------------
+
 function createDiv(classes) {
     div = document.createElement('div');
     div.className = `${classes}`;
@@ -179,6 +188,8 @@ function createCalendar() {
     highlightToday();
 }
 
+//-----------Calendar Left-------------
+
 function fillCalendarLeft() {
     const date = new Date();
     const day = date.getDate();
@@ -188,6 +199,8 @@ function fillCalendarLeft() {
     document.querySelector('#calendar-day-day').innerText = day;
     document.querySelector('#calendar-day-month').innerText = month;
 }
+
+//-----------Calendar Right-------------
 
 function fillCalendarRight() {
     let week = createWeek()
@@ -214,8 +227,27 @@ function fillCalendarRight() {
     }
 }
 
-//-------------CALENDAR HELPER METHODS-------------
+// This function is called by run() (instead of any calendar function) and is passed each exercise date
+function markCalendar(date) {
+    let [month, day, year] = date.split('/')
+    year = "20" + year
+    todayDate = new Date()
+    todayDay = todayDate.getDate()
+    todayMonth = todayDate.getMonth()
+    todayMonth = "0" + (todayMonth + 1)
+    todayYear = todayDate.getFullYear()
+    if (year == todayYear && month == todayMonth) {
+        if (document.querySelector(`#day-${day} .active`)) {
+            markToday(day)
+        } else {
+            markDay(day)
+        }
+    }
+}
 
+//-----------Helpers-------------
+
+// Creators
 function createWeek() {
     div = createDiv('week')
     document.querySelector('.days').appendChild(div)
@@ -237,23 +269,7 @@ function createCalendarDay(dateInt, week) {
         week.appendChild(li)
 }
 
-function markCalendar(date) {
-    let [month, day, year] = date.split('/')
-    year = "20" + year
-    todayDate = new Date()
-    todayDay = todayDate.getDate()
-    todayMonth = todayDate.getMonth()
-    todayMonth = "0" + (todayMonth + 1)
-    todayYear = todayDate.getFullYear()
-    if (year == todayYear && month == todayMonth) {
-        if (document.querySelector(`#day-${day} .active`)) {
-            markToday(day)
-        } else {
-            markDay(day)
-        }
-    }
-}
-
+// Markers
 function markToday() {
     document.querySelector('#worked-out').innerHTML = '✓'
 }
@@ -268,15 +284,7 @@ function highlightToday() {
     document.querySelector(`#day-${day}`).innerHTML = `<span class='active'>${day}</span>`
 }
 
-//-------------CALENDAR HELPER METHODS-------------
-
-function digitize(number) {
-    if (number < 10) {
-        number = "0" + number;
-    }
-    return number
-}
-
+// Helpers
 function daysInThisMonth() {
     var now = new Date();
     return new Date(now.getFullYear(), now.getMonth()+1, 0).getDate();
@@ -285,6 +293,13 @@ function daysInThisMonth() {
 function getFirstDateOfMonth() {
     date = new Date()
     return new Date(date.getFullYear(), date.getMonth(), 1).toUTCString().split(',')[0].toUpperCase();
+}
+
+function digitize(number) {
+    if (number < 10) {
+        number = "0" + number;
+    }
+    return number
 }
 
 /*-------------------     WORKOUT VIDEOS     -------------------*/
