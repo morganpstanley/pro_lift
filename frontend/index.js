@@ -370,14 +370,14 @@ ADD_EXERCISE_FORM_SUBMIT.addEventListener('submit', function() {
         return false;
     }
 
-    //Collect sets into an array
-    let setArray = [];
+    exercise = {name: document.querySelector('[name=input-exercise-name]').value};
+
+    exercise.sets = [];
     for (let i = 1; i <= setCounter; i++) {
-        setArray.push([document.querySelector(`#add-set-${i} [name=input-reps]`).value, 
+        exercise.sets.push([document.querySelector(`#add-set-${i} [name=input-reps]`).value, 
         document.querySelector(`#add-set-${i} [name=input-weight]`).value])
     }
 
-    //Post Exercise
     fetch(EXERCISES_URL, {
         method: 'POST',
         headers: {
@@ -385,8 +385,8 @@ ADD_EXERCISE_FORM_SUBMIT.addEventListener('submit', function() {
           Accept: "application/json"
         },
         body: JSON.stringify({
-            "sets": setArray,
-            "name": document.querySelector('[name=input-exercise-name]').value,
+            "sets": exercise.sets,
+            "name": exercise.name,
         })
     })
     .then(resp => resp.json())
