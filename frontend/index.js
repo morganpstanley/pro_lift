@@ -362,16 +362,17 @@ ADD_EXERCISE_BUTTON.addEventListener('click', toggleNext)
 
 ADD_EXERCISE_FORM_SUBMIT.addEventListener('submit', function() {
     event.preventDefault();
+    errorMessage = document.querySelector('#add-exercise-form .error-message');
 
     //Check for errors
     if (handleAddFormErrors(this)) {
-        document.querySelector('#add-exercise-form .error-message').classList.remove('hidden')
-        document.querySelector('#add-exercise-form .error-message').innerText = "ERROR - PLEASE CORRECT HIGHLIGHTED FIELDS"
+        errorMessage.classList.remove('hidden')
+        errorMessage.innerText = "ERROR - PLEASE CORRECT HIGHLIGHTED FIELDS"
         return false;
     }
+    errorMessage.classList.add('hidden')
 
     exercise = {name: document.querySelector('[name=input-exercise-name]').value};
-
     exercise.sets = [];
     for (let i = 1; i <= setCounter; i++) {
         exercise.sets.push([document.querySelector(`#add-set-${i} [name=input-reps]`).value, 
@@ -393,9 +394,21 @@ ADD_EXERCISE_FORM_SUBMIT.addEventListener('submit', function() {
     .then(json => {
         addExercise(json)
         markToday()
+        removeInput()
         toggleNext.call(ADD_EXERCISE_BUTTON)
     })
 })
+
+function removeInput() {
+    while (setCounter > 1) {
+        div = document.querySelector(`#add-set-${setCounter}`)
+        div.remove();
+        setCounter -= 1;
+    }
+    document.querySelector('[name=input-exercise-name').value = ""
+    document.querySelector('[name=input-reps').value = ""
+    document.querySelector('[name=input-weight').value = ""
+}
 
 /*---------------------     RUN PROGRAM     -----------------------*/
 
