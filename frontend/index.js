@@ -1,3 +1,5 @@
+'use strict'
+
 const BASE_URL = "http://localhost:3000"
 const EXERCISES_URL = `${BASE_URL}/exercises`
 const LIFTS_URL = `${BASE_URL}/lifts`
@@ -30,7 +32,7 @@ function addExercise(exercise) {
     const button = createButton(buttonText, toggleNext)
 
     //add each set
-    for (i = 0; i < exercise.lifts.length; i++) {
+    for (let i = 0; i < exercise.lifts.length; i++) {
         addLift(exercise.lifts[i], innerDiv, i+1)
     }
 
@@ -50,7 +52,7 @@ function addLift(lift, div, setNum) {
             <span class="x-symbol">✘</span> 
             <span class="lift-weight">${lift.weight}</span> 
         </span>`;
-    editButton = createButton("✐", editForm)
+    const editButton = createButton("✐", editForm)
     editButton.classList.add('edit-button')
     innerDiv.appendChild(editButton)
     div.appendChild(innerDiv)
@@ -165,13 +167,13 @@ function handleAddFormErrors(form) {
 //-----------Helpers-------------
 
 function createDiv(classes) {
-    div = document.createElement('div');
+    const div = document.createElement('div');
     div.className = `${classes}`;
     return div;
 }
 
 function createButton(innerString, clickEvent) {
-    button = document.createElement('button')
+    const button = document.createElement('button')
     button.innerHTML = innerString
     button.addEventListener('click', clickEvent)
     return button
@@ -235,11 +237,10 @@ function fillCalendarRight() {
 function markCalendar(date) {
     let [month, day, year] = date.split('/')
     year = "20" + year
-    todayDate = new Date()
-    todayDay = todayDate.getDate()
-    todayMonth = todayDate.getMonth()
+    const todayDate = new Date()
+    let todayMonth = todayDate.getMonth()
     todayMonth = "0" + (todayMonth + 1)
-    todayYear = todayDate.getFullYear()
+    const todayYear = todayDate.getFullYear()
     if (year == todayYear && month == todayMonth) {
         if (document.querySelector(`#day-${day} .active`)) {
             markToday(day)
@@ -253,13 +254,13 @@ function markCalendar(date) {
 
 // Creators
 function createWeek() {
-    div = createDiv('week')
+    const div = createDiv('week')
     document.querySelector('.days').appendChild(div)
     return div;
 }
 
 function createInactiveDay(week) {
-    li = document.createElement('li')
+    const li = document.createElement('li')
     li.innerHTML = "00";
     li.classList.add('inactive')
     week.appendChild(li) 
@@ -267,7 +268,7 @@ function createInactiveDay(week) {
 
 function createCalendarDay(dateInt, week) {
         const day = digitize(dateInt)
-        li = document.createElement('li')
+        const li = document.createElement('li')
         li.innerHTML = day;
         li.setAttribute('id', `day-${day}`)
         week.appendChild(li)
@@ -283,7 +284,7 @@ function markDay(day) {
 }
 
 function highlightToday() {
-    day = new Date().getDate();
+    let day = new Date().getDate();
     day = digitize(day)
     document.querySelector(`#day-${day}`).innerHTML = `<span class='active'>${day}</span>`
 }
@@ -295,7 +296,7 @@ function daysInThisMonth() {
   }
 
 function getFirstDateOfMonth() {
-    date = new Date()
+    const date = new Date()
     return new Date(date.getFullYear(), date.getMonth(), 1).toUTCString().split(',')[0].toUpperCase();
 }
 
@@ -344,7 +345,7 @@ function toggleNext() {
 
 ADD_SET_BUTTON.addEventListener('click', function() {
     setCounter += 1;
-    div = createDiv('set-form');
+    const div = createDiv('set-form');
     div.setAttribute('id', `add-set-${setCounter}`)
     div.innerHTML = formText;
     document.querySelector('#add-lift-form').appendChild(div)
@@ -362,7 +363,7 @@ ADD_EXERCISE_BUTTON.addEventListener('click', toggleNext)
 
 ADD_EXERCISE_FORM_SUBMIT.addEventListener('submit', function() {
     event.preventDefault();
-    errorMessage = document.querySelector('#add-exercise-form .error-message');
+    const errorMessage = document.querySelector('#add-exercise-form .error-message');
 
     //Check for errors
     if (handleAddFormErrors(this)) {
@@ -372,7 +373,7 @@ ADD_EXERCISE_FORM_SUBMIT.addEventListener('submit', function() {
     }
     errorMessage.classList.add('hidden')
 
-    exercise = {name: document.querySelector('[name=input-exercise-name]').value};
+    const exercise = {name: document.querySelector('[name=input-exercise-name]').value};
     exercise.sets = [];
     for (let i = 1; i <= setCounter; i++) {
         exercise.sets.push([document.querySelector(`#add-set-${i} [name=input-reps]`).value, 
@@ -401,7 +402,7 @@ ADD_EXERCISE_FORM_SUBMIT.addEventListener('submit', function() {
 
 function removeInput() {
     while (setCounter > 1) {
-        div = document.querySelector(`#add-set-${setCounter}`)
+        const div = document.querySelector(`#add-set-${setCounter}`)
         div.remove();
         setCounter -= 1;
     }
