@@ -99,31 +99,22 @@ function submitEditForm(set) {
 }
 
 function handleEditFormErrors(set, reps = 0, weight = 0) {
+    set.querySelector('.lift-weight').classList.remove('error')
+    set.querySelector('.lift-reps').classList.remove('error')
     const div = set.parentElement.parentElement.querySelector('.error-message')
-    div.classList.remove('hidden')
-    if (!reps && !weight) {
+    if (!weight) {
+        set.querySelector('.lift-weight').classList.add('error');
+        set.querySelector('.lift-weight').innerText = inputWeight;
+    }
+    if (!reps) {
         set.querySelector('.lift-reps').classList.add('error');
         set.querySelector('.lift-reps').innerText = inputReps;
-        set.querySelector('.lift-weight').classList.add('error')
-        set.querySelector('.lift-weight').innerText = inputWeight
-        div.innerHTML = "ERROR - PLEASE ADD AMOUNT OF REPS AND WEIGHT"
-        return 0
-    } else if (!reps) {
-        set.querySelector('.lift-reps').classList.add('error');
-        set.querySelector('.lift-reps').innerText = inputReps;
-        set.querySelector('.lift-weight').classList.remove('error')
-        div.innerHTML = "ERROR - PLEASE ADD AMOUNT OF REPS"
-        return 0
-    } else if (!weight) {
-        set.querySelector('.lift-weight').classList.add('error')
-        set.querySelector('.lift-reps').classList.remove('error')
-        set.querySelector('.lift-weight').innerText = inputWeight
-        div.innerHTML = "ERROR - PLEASE ADD A WEIGHT"
+    }
+    if (!reps || !weight) {
+        div.classList.remove('hidden')
+        div.innerHTML = "ERROR - PLEASE TYPE A NUMBER IN THE HIGHLIGHTED AREAS"
         return 0
     } else {
-        set.querySelector('.lift-weight').classList.remove('error')
-        set.querySelector('.lift-reps').classList.remove('error')
-        div.classList.add('hidden')
         return 1
     }
 }
