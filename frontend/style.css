@@ -172,7 +172,7 @@ input:focus, textarea:focus, select:focus, button:focus{
     background-color: rgb(27, 27, 27);
 }
 
-@-webkit-keyframes autofill {
+@keyframes autofill {
     0%,100% {
         color: rgb(27, 27, 27);
         background: rgb(231, 172, 45);
@@ -180,9 +180,9 @@ input:focus, textarea:focus, select:focus, button:focus{
 }
 
 #grid-lifts input:-webkit-autofill {
-    -webkit-animation-delay: 1s;
-    -webkit-animation-name: autofill;
-    -webkit-animation-fill-mode: both;
+    animation-delay: 1s;
+    animation-name: autofill;
+    animation-fill-mode: both;
 }
 
 #grid-lifts input {
@@ -465,7 +465,7 @@ iframe {
 }
 
 .error {
-    background-color: rgb(192, 24, 24);
+    background-color: red;
     color: black;
 }
 
