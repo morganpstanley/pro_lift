@@ -59,16 +59,20 @@ function addLift(lift, div, setNum) {
 }
 
 function editForm() {
-    if (this.previousElementSibling.querySelector('.lift-reps').isContentEditable) {
-        submitEditForm(this.previousElementSibling)
+    const targetElement = this.previousElementSibling
+    const liftReps = targetElement.querySelector('.lift-reps')
+    const liftWeight = targetElement.querySelector('.lift-weight')
+
+    if (liftReps.isContentEditable) {
+        submitEditForm(targetElement)
     } else {
-        inputWeight = this.previousElementSibling.querySelector('.lift-weight').innerText;
-        inputReps = this.previousElementSibling.querySelector('.lift-reps').innerText;
-        this.previousElementSibling.querySelector('.lift-reps').contentEditable="true"
-        this.previousElementSibling.querySelector('.lift-weight').contentEditable="true"
+        inputWeight = liftWeight.innerText;
+        inputReps = liftReps.innerText;
+        liftReps.contentEditable="true"
+        liftWeight.contentEditable="true"
         this.innerText = "EDITING...";
         this.classList.add('editing')
-        this.previousElementSibling.classList.add('being-edited')
+        targetElement.classList.add('being-edited')
     }
 
 }
@@ -98,21 +102,25 @@ function submitEditForm(set) {
     }
 }
 
-function handleEditFormErrors(set, reps = 0, weight = 0) {
-    set.querySelector('.lift-weight').classList.remove('error')
-    set.querySelector('.lift-reps').classList.remove('error')
+function handleEditFormErrors(set, reps = 'error', weight = 'error') {
     const div = set.parentElement.parentElement.querySelector('.error-message')
-    if (!weight) {
-        set.querySelector('.lift-weight').classList.add('error');
-        set.querySelector('.lift-weight').innerText = inputWeight;
+    const liftWeight = set.querySelector('.lift-weight')
+    const liftReps = set.querySelector('.lift-reps')
+
+    liftWeight.classList.remove('error')
+    liftReps.classList.remove('error')
+
+    if (isNaN(parseInt(weight))) {
+        liftWeight.classList.add('error');
+        liftWeight.innerText = inputWeight;
     }
-    if (!reps) {
-        set.querySelector('.lift-reps').classList.add('error');
-        set.querySelector('.lift-reps').innerText = inputReps;
+    if (isNaN(parseInt(reps))) {
+        liftReps.classList.add('error');
+        liftReps.innerText = inputReps;
     }
-    if (!reps || !weight) {
+    if (isNaN(parseInt(reps)) || isNaN(parseInt(weight))) {
         div.classList.remove('hidden')
-        div.innerHTML = "ERROR - PLEASE TYPE A NUMBER IN THE HIGHLIGHTED AREAS"
+        div.innerHTML = "ERROR - PLEASE FILL HIGHLIGHTED FIELDS"
         return 0
     } else {
         return 1
@@ -332,7 +340,7 @@ ADD_EXERCISE_FORM_SUBMIT.addEventListener('submit', function() {
     //Check for errors
     if (handleAddFormErrors(this)) {
         document.querySelector('#add-exercise-form .error-message').classList.remove('hidden')
-        document.querySelector('#add-exercise-form .error-message').innerText = "ERROR - PLEASE FILL EMPTY FIELDS"
+        document.querySelector('#add-exercise-form .error-message').innerText = "ERROR - PLEASE FILL HIGHLIGHTED FIELDS"
         return false;
     }
 
