@@ -139,7 +139,7 @@ function handleAddFormErrors(form) {
     const name = form.querySelector('[name=input-exercise-name]')
     let errors = 0
 
-    if (form.querySelector('.error')) {
+    while (form.querySelector('.error')) {
         form.querySelector('.error').classList.remove('error');
     }
     if (name.value === "") {
