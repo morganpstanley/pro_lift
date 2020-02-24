@@ -339,7 +339,7 @@ ADD_EXERCISE_FORM_SUBMIT.addEventListener('submit', function() {
     event.preventDefault();
 
     //Check for errors
-    if (handleAddFormErrors(this) !== 0) {
+    if (handleAddFormErrors(this)) {
         document.querySelector('#add-exercise-form .error-message').classList.remove('hidden')
         document.querySelector('#add-exercise-form .error-message').innerText = "ERROR - PLEASE FILL EMPTY FIELDS"
         return false;
