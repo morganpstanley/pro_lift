@@ -110,19 +110,20 @@ function handleEditFormErrors(set, reps = 'error', weight = 'error') {
     liftWeight.classList.remove('error')
     liftReps.classList.remove('error')
 
-    if (isNaN(parseInt(weight))) {
+    if (isNaNWithParse(weight)) {
         liftWeight.classList.add('error');
         liftWeight.innerText = inputWeight;
     }
-    if (isNaN(parseInt(reps))) {
+    if (isNaNWithParse(reps)) {
         liftReps.classList.add('error');
         liftReps.innerText = inputReps;
     }
-    if (isNaN(parseInt(reps)) || isNaN(parseInt(weight))) {
+    if (isNaNWithParse(reps) || isNaNWithParse(weight)) {
         div.classList.remove('hidden')
         div.innerHTML = "ERROR - PLEASE FILL HIGHLIGHTED FIELDS"
         return 0
     } else {
+        div.classList.add('hidden')
         return 1
     }
 }
@@ -161,6 +162,10 @@ function createButton(innerString, clickEvent) {
     button.innerHTML = innerString
     button.addEventListener('click', clickEvent)
     return button
+}
+
+function isNaNWithParse(num) {
+    return isNaN(parseInt(num))
 }
 
 /*---------------------     CALENDAR     ---------------------*/
