@@ -443,6 +443,8 @@ iframe {
     color: rgb(27, 27, 27);
 }
 
+/* conditional classes */
+
 .editing {
     background-color: whitesmoke !important;
     color: rgb(27, 27, 27) !important;
@@ -465,7 +467,7 @@ iframe {
 }
 
 .error {
-    background-color: red;
+    background-color: red !important;
     color: black;
 }
 
@@ -474,8 +476,4 @@ iframe {
     font-size: .5rem;
     font-style: italic;
     text-align: center;
-}
-
-.lift-error {
-    background-color: red !important;
 }

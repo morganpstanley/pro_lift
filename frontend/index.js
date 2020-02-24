@@ -3,7 +3,6 @@
 const BASE_URL = "http://localhost:3000"
 const EXERCISES_URL = `${BASE_URL}/exercises`
 const LIFTS_URL = `${BASE_URL}/lifts`
-const formText = 'REPS <input type="text" name="input-reps" placeholder=""> <span>x</span> WEIGHT <input type="text" name="input-weight" placeholder="">'
 let inputWeight = 0;
 let inputReps = 0;
 
@@ -31,29 +30,28 @@ function addExercise(exercise) {
     const buttonText = `<span id="exercise-name"><b>${exercise.name}</b></span> <span id="exercise-date">${exercise.date}</span`
     const button = createButton(buttonText, toggleNext)
 
+    //add each set
     for (i = 0; i < exercise.lifts.length; i++) {
         addLift(exercise.lifts[i], innerDiv, i+1)
     }
 
+    //append all divs
+    innerDiv.prepend(errorDiv)
     div.appendChild(button)
-    innerDiv.appendChild(errorDiv)
     div.appendChild(innerDiv)
-
     document.querySelector('#workouts').prepend(div);
-}
-
-function createButton(innerString, clickEvent) {
-    button = document.createElement('button')
-    button.innerHTML = innerString
-    button.addEventListener('click', clickEvent)
-    return button
 }
 
 function addLift(lift, div, setNum) {
     const innerDiv = createDiv('set')
     innerDiv.setAttribute('id', lift.id)
-    liftString = `<span class="set-number">${setNum}</span> <span class="reps-n-sets"> <span class="lift-reps">${lift.reps}</span> <span class="x-symbol">✘</span> <span class="lift-weight">${lift.weight}</span> </span>`
-    innerDiv.innerHTML = liftString;
+    innerDiv.innerHTML = 
+        `<span class="set-number">${setNum}</span> 
+        <span class="reps-n-sets"> 
+            <span class="lift-reps">${lift.reps}</span> 
+            <span class="x-symbol">✘</span> 
+            <span class="lift-weight">${lift.weight}</span> 
+        </span>`;
     editButton = createButton("✐", editForm)
     editButton.classList.add('edit-button')
     innerDiv.appendChild(editButton)
@@ -80,7 +78,12 @@ function submitEditForm(set) {
     const reps = set.querySelector('.lift-reps').innerText
     const weight = set.querySelector('.lift-weight').innerText;
     
-    if (handleErrors(set, reps, weight)) {
+    if (handleEditFormErrors(set, reps, weight)) {
+        set.querySelector('.lift-reps').contentEditable="false"
+        set.querySelector('.lift-weight').contentEditable="false"
+        set.classList.remove('being-edited')
+        set.nextElementSibling.innerText = "✐";
+        set.nextElementSibling.classList.remove('editing')
         fetch(`${LIFTS_URL}/${liftId}`, {
             method: 'PATCH',
             headers: {
@@ -92,17 +95,10 @@ function submitEditForm(set) {
                 "weight": weight,
             })
         })
-        .then(function() {
-            set.querySelector('.lift-reps').contentEditable="false"
-            set.querySelector('.lift-weight').contentEditable="false"
-            set.classList.remove('being-edited')
-            set.nextElementSibling.innerText = "✐";
-            set.nextElementSibling.classList.remove('editing')
-        })
     }
 }
 
-function handleErrors(set, reps = 0, weight = 0) {
+function handleEditFormErrors(set, reps = 0, weight = 0) {
     const div = set.parentElement.parentElement.querySelector('.error-message')
     div.classList.remove('hidden')
     if (!reps && !weight) {
@@ -132,23 +128,24 @@ function handleErrors(set, reps = 0, weight = 0) {
     }
 }
 
-function checkForErrors(form) {
+function handleAddFormErrors(form) {
     errors = 0
-    while (document.querySelector('.lift-error')) {
-        document.querySelector('.lift-error').classList.remove('lift-error');
+
+    if (form.querySelector('.error')) {
+        form.querySelector('.error').classList.remove('error');
     }
-    if (document.querySelector('[name=input-exercise-name]').value === "") {
-        document.querySelector('[name=input-exercise-name]').classList.add('lift-error')
+    if (form.querySelector('[name=input-exercise-name]').value === "") {
+        form.querySelector('[name=input-exercise-name]').classList.add('error')
         errors += 1;
     }
     for (let i = 1; i < setCounter; i++) {
-        if (document.querySelector(`#add-set-${i} [name=input-reps]`).value === "") {
+        if (form.querySelector(`#add-set-${i} [name=input-reps]`).value === "") {
             errors += 1;
-            document.querySelector(`#add-set-${i} [name=input-reps]`).classList.add('lift-error')
+            form.querySelector(`#add-set-${i} [name=input-reps]`).classList.add('error')
         }
-        if (document.querySelector(`#add-set-${i} [name=input-weight]`).value === "") {
+        if (form.querySelector(`#add-set-${i} [name=input-weight]`).value === "") {
             errors += 1;
-            document.querySelector(`#add-set-${i} [name=input-weight]`).classList.add('lift-error')
+            form.querySelector(`#add-set-${i} [name=input-weight]`).classList.add('error')
         }
     }
     return errors  
@@ -158,6 +155,13 @@ function createDiv(classes) {
     div = document.createElement('div');
     div.className = `${classes}`;
     return div;
+}
+
+function createButton(innerString, clickEvent) {
+    button = document.createElement('button')
+    button.innerHTML = innerString
+    button.addEventListener('click', clickEvent)
+    return button
 }
 
 /*---------------------     CALENDAR     ---------------------*/
@@ -307,6 +311,7 @@ const ADD_SET_BUTTON = document.querySelector('#add-set-button');
 const REMOVE_SET_BUTTON = document.querySelector('#remove-set-button');
 const ADD_EXERCISE_BUTTON = document.querySelector('#add-exercise-button');
 const ADD_EXERCISE_FORM_SUBMIT = document.querySelector('#add-exercise-form');
+const formText = 'REPS <input type="text" name="input-reps" placeholder=""> <span>x</span> WEIGHT <input type="text" name="input-weight" placeholder="">';
 let setCounter = 2;
 
 
@@ -334,7 +339,7 @@ ADD_EXERCISE_FORM_SUBMIT.addEventListener('submit', function() {
     event.preventDefault();
 
     //Check for errors
-    if (checkForErrors(this) !== 0) {
+    if (handleAddFormErrors(this) !== 0) {
         document.querySelector('#add-exercise-form .error-message').classList.remove('hidden')
         document.querySelector('#add-exercise-form .error-message').innerText = "ERROR - PLEASE FILL EMPTY FIELDS"
         return false;
