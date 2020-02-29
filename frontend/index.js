@@ -9,6 +9,15 @@ const LIFTS_URL = `${BASE_URL}/lifts`
 function run() {
     createCalendar();
     addWorkoutVideoLinks();
+    fetchExercises();
+}
+
+/*------------------     LIFT SECTION     ------------------*/
+
+
+//-----------Initial Setup-------------
+
+function fetchExercises() {
     fetch(EXERCISES_URL)
     .then(resp => resp.json())
     .then(json => 
@@ -18,11 +27,6 @@ function run() {
         })
     );
 }
-
-/*------------------     LIFT SECTION     ------------------*/
-
-
-//-----------Initial Setup-------------
 
 function addExercise(exercise) {
     const div = createDiv('lift')
@@ -337,7 +341,32 @@ const ADD_EXERCISE_BUTTON = document.querySelector('#add-exercise-button');
 const ADD_EXERCISE_FORM_SUBMIT = document.querySelector('#add-exercise-form');
 const formText = 'REPS <input type="text" name="input-reps" placeholder=""> <span>x</span> WEIGHT <input type="text" name="input-weight" placeholder="">';
 let setCounter = 1;
+const searchSubmit = document.querySelector('#search-submit')
 
+
+searchSubmit.addEventListener('click', function(event) {
+    event.preventDefault()
+    const searchInput = document.querySelector('#search-input').value
+    fetch(EXERCISES_URL)
+    .then(resp => resp.json())
+    .then(json => {
+        const matches = json.filter(exercise => exercise.name === searchInput);
+        console.log(matches, matches.length)
+        if (matches.length > 0) {
+            removeLifts()
+            matches.forEach(exercise => {     
+                addExercise(exercise);
+                markCalendar(exercise.date)
+            })
+        } else {
+            alert("No Matches Found")
+        }
+    });
+})
+
+function removeLifts() {
+    document.querySelector('#workouts').innerHTML = ""
+}
 
 function toggleNext() {
     this.nextElementSibling.classList.toggle('hidden')
