@@ -339,9 +339,15 @@ const ADD_SET_BUTTON = document.querySelector('#add-set-button');
 const REMOVE_SET_BUTTON = document.querySelector('#remove-set-button');
 const ADD_EXERCISE_BUTTON = document.querySelector('#add-exercise-button');
 const ADD_EXERCISE_FORM_SUBMIT = document.querySelector('#add-exercise-form');
+const RESET_BUTTON = document.querySelector('#reset-button');
 const formText = 'REPS <input type="text" name="input-reps" placeholder=""> <span>x</span> WEIGHT <input type="text" name="input-weight" placeholder="">';
 let setCounter = 1;
 const searchSubmit = document.querySelector('#search-submit')
+
+RESET_BUTTON.addEventListener('click', function() {
+    removeLifts();
+    fetchExercises();
+})
 
 
 searchSubmit.addEventListener('click', function(event) {
@@ -351,7 +357,6 @@ searchSubmit.addEventListener('click', function(event) {
     .then(resp => resp.json())
     .then(json => {
         const matches = json.filter(exercise => exercise.name === searchInput);
-        console.log(matches, matches.length)
         if (matches.length > 0) {
             removeLifts()
             matches.forEach(exercise => {     
