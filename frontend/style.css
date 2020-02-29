@@ -288,6 +288,20 @@ input:focus, textarea:focus, select:focus, button:focus{
 
 }
 
+button#search-button, button#reset-button {
+    width: 4.3rem;
+    font-size: 0.5rem;
+    padding: 3px;
+    margin: 4px;
+    font-weight: 600;
+    height: 2rem;
+}
+
+#search-input {
+    margin-left: 1rem;
+    height: 2rem;
+}
+
 /*--------------CALENDAR SECTION----------------*/
 
 /* LEFT */
