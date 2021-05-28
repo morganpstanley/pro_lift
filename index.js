@@ -1,6 +1,6 @@
 'use strict'
 
-const BASE_URL = "http://localhost:3000"
+const BASE_URL = "https://morganpstanley.com/pro_lift"
 const EXERCISES_URL = `${BASE_URL}/exercises`
 const LIFTS_URL = `${BASE_URL}/lifts`
 
