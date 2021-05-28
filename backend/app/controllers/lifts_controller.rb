@@ -11,7 +11,6 @@ class LiftsController < ApplicationController
     end
 
     def create
-        binding.pry
         lift = Lift.create(reps: params[:reps], date: params[:amount])
         render json: lift
     end
